@@ -9,7 +9,7 @@
     <meta name="description" content="IntroToNode Presentation for Node Boston Meetup 3/27/12" />
     <meta name="author" content="Le Zhang" />
 
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.4/angular.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.min.js"></script>
     <link href='http://fonts.googleapis.com/css?family=Pontano+Sans' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="http://introtonode.herokuapp.com/css/introtonode.css">
 </head>
@@ -28,28 +28,22 @@
             $scope.agendaItems.push(data);
             y += 1000;
         }
+        
+    });
+    
+    app.run(function($rootScope) {
+      $rootScope.bootstrapper = 'You have successfully bootstrapped AngularJS';        
+      alert('loaded');
+      $('#impress').jmpress();
     });
 </script>
-<div ng-controller="agendaController">
-    <ul>
-        <li ng-repeat="agendaItem in agendaItems" id="agenda-{{agendaItem.id}}" class="step" data-x="{{agendaItem.x}}" data-y="{{agendaItem.y}}" data-scale="{{agendaItem.scale}}">
-            <q>{{agendaItem.content}}</q>
-        </li>
-    </ul>
-</div>
-<div class="fallback-message">
-    <p>Your browser <b>doesn't support the features required</b> by impress.js, so you are presented with a simplified version of this presentation.</p>
-    <p>For the best experience please use the latest <b>Chrome</b>, <b>Safari</b> or <b>Firefox</b> browser.</p>
-</div>
-
-<div id="impress">
-
-    <div id="title" class="step" data-x="-500" data-y="50">
+<div id="impress" ng-controller="agendaController">
+    <div id="title" class="step" data-x="-1000" data-y="50">
         <h1>Intro to Node.js</h1>
         <h2>Le Zhang - @le_isms</h2>
     </div>
 
-    <div id="agenda" class="step" data-x="500" data-y="50">
+    <div id="agenda" class="step" data-x="-500" data-y="50">
         <h3>Agenda:</h3>
         <h3>What is Node?</h3>
         <h3>Brief History</h3>
@@ -57,68 +51,40 @@
         <h3>A few resources</h3>
     </div>
 
-    <div class="cube">
-        <div class="topFace step" data-x="0" data-y="-125" data-z="-1005" data-rotate-x="60" data-rotate-y="0" data-rotate-z="45" data-scale="0.5">
-            <h1>Just what is Node?</h1>
-            <p>What <i>isn't</i> Node:</p>
-            <ul>
-                <li>a language</li>
-                <li>a platform or service</li>
-                <li>a framework</li>
-            </ul>
-        </div>
-        <div class="leftFace step" data-x="-125" data-y="90" data-z="-985" data-rotate-x="-30" data-rotate-y="-45" data-rotate-z="0" data-scale="0.5">
-            <h1>Ok.. what is Node?</h1>
-            <p>Node is...</p>
-            <ul>
-                <li>a Javascript environment</li>
-                <li>Event-driven/Non-blocking</li>
-                <li>Pure Awesome</li>
-            </ul>
-        </div>
-        <div class="rightFace step" data-x="125" data-y="90" data-z="-985" data-rotate-x="-30" data-rotate-y="45" data-rotate-z="0" data-scale="0.5">
-            <h1>Origin</h1>
-            <ul>
-                <li>Created by Ryan Dahl</li>
-                <li>"Scalable network programs"</li>
-                <li>Maintained by Isaac Schlueter</li>
-            </ul>
-        </div>
-        <div class="backRightFace step" data-x="125" data-y="-35" data-z="-1200" data-rotate-x="-30" data-rotate-y="135" data-rotate-z="0" data-scale="0.5">
-            <h1>Pros</h1>
-            <ul>
-                <li>Javascript</li>
-                <li>Non-blocking</li>
-                <li>Reuse JS code</li>
-                <li>Strong community and modules!</li>
-                <li>People will think you're a l33t hacker</li>
-            </ul>
-        </div>
-        <div class="backLeftFace step" data-x="-125" data-y="-35" data-z="-1200" data-rotate-x="-30" data-rotate-y="225" data-rotate-z="0" data-scale="0.5">
-            <h1>Cons</h1>
-            <ul>
-                <li>Javascript</li>
-                <li>CPU intensive tasks</li>
-                <li>Event-driven learning curve</li>
-                <li>People will think you're a hipster</li>
-            </ul>
-        </div>
-        <div class="bottomFace step" data-x="0" data-y="180" data-z="-1180" data-rotate-x="60" data-rotate-y="180" data-rotate-z="45" data-scale="0.5">
-            <h1>Resources</h1>
-            <ul>
-                <li><a href="http://howtonode.org/introduction-to-npm">Introduction to NPM</a></li>
-                <li><a href="http://expressjs.com">Express.js web framework</a></li>
-                <li><a href="https://devcenter.heroku.com/articles/nodejs">Free node hosting on Heroku</a></li>
-                <li>Slides at introtonode.herokuapp.com</li>
-                <li>Follow me at @le_isms</li>
-            </ul>
-        </div>
+    <div class="step" id="agenda-{{agendaItem.id}}" data-x="{{$index}}*1000" data-y="-1500" ng-repeat="agendaItem in agendaItems">
+        <h1>{{agendaItem.content}}</h1>
+        <p>Text</p>
     </div>
-
+    <!-- begin of test block -->
+    <!-- <div class="step" id="agenda-{{agendaItem.id}}" data-x="0" data-y="-1500">-->
+    <!--    <h1>1 {{agendaItem.content}}</h1>-->
+    <!--    <p>Text</p>-->
+    <!--</div>-->
+    <!-- <div class="step" id="agenda-{{agendaItem.id}}" data-x="1000" data-y="-1500">-->
+    <!--    <h1>2 {{agendaItem.content}}</h1>-->
+    <!--    <p>Text</p>-->
+    <!--</div>-->
+    <!-- <div class="step" id="agenda-{{agendaItem.id}}" data-x="2000" data-y="-1500">-->
+    <!--    <h1>3 {{agendaItem.content}}</h1>-->
+    <!--    <p>Text</p>-->
+    <!--</div>-->
+    <!-- end of test block -->
+</div>
+<div class="fallback-message">
+    <p>Your browser <b>doesn't support the features required</b> by impress.js, so you are presented with a simplified version of this presentation.</p>
+    <p>For the best experience please use the latest <b>Chrome</b>, <b>Safari</b> or <b>Firefox</b> browser.</p>
 </div>
 
-<script src="http://cdnjs.cloudflare.com/ajax/libs/impress.js/0.5.3/impress.min.js"></script>
-<script>impress().init();</script>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/impress.js/0.5.3/impress.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jmpress/0.4.5/jmpress.min.js"></script>
+<script>
+  // impress.init();
+$(function() {
+  // $('#impress').jmpress();
+});
+</script>
 
 </body>
 </html>
