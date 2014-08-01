@@ -29,11 +29,12 @@
     opacity: 1;
 }
 </style>  
-<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular-resource.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jmpress/0.4.5/jmpress.min.js"></script>
   </head>
-  <body ng-app="fapApp">
+  <body ng-app="app">
     <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
@@ -63,6 +64,10 @@ app.directive('uiImpress', function () {
     };
 });
 
+function cb() {
+  alert('I got data from ContentService, yeah!');
+}
+
 function randomData($scope, $http) {
     $scope.data;
 
@@ -74,8 +79,10 @@ function randomData($scope, $http) {
         scale: [0.1, 10]
     };
 
-    var randomDataSource = "http://api.icndb.com/jokes/random/" + slides;
-
+    // var randomDataSource = "http://api.icndb.com/jokes/random/" + slides;
+    // var randomDataSource = "https://script.googleusercontent.com/macros/echo?user_content_key=g3jJn8mc4EDli4_78fFE6X-E539HccVRIMamTaTzhJ4GzJjSU_Mmpn9LKXuVKsTIrP-CzO7Ofh5qRyfh9ZkZAQDMbrdAE9W_m5_BxDlH2jW0nuo2oDemN9CCS2h10ox_1xSncGQajx_ryfhECjZEnO2VxMsvENCyASFMhBamCj5M4dAlGsP-vEkcs0Q0IKyTnLuhxfwBpu5zpL-1vuSTjA&lib=MDXkAoIMXv4rbCs-aIjOT_nTpSR1OlyVI";
+    var randomDataSource = "https://script.google.com/macros/s/AKfycbyfELimRE5WFtYHUocEpnArHipg6WazmGR09fFULayA/dev";
+    
     function getRandomInt(min, max) {
         return Math.floor(Math.random() * (max - min + 1)) + min;
     }
@@ -99,7 +106,9 @@ function randomData($scope, $http) {
         });
     }
 
-    $http.get(randomDataSource).then(function (response) {
+    $http.jsonp(randomDataSource).then(function (response) {
+var myObj = angular.fromJson(response.data);
+console.log(myObj);
         var messages = response.data.value.map(function (item) {
             return item.joke;
         });
@@ -128,14 +137,14 @@ function randomData($scope, $http) {
 
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
-    <script src="bower_components/angular/angular.js"></script>
-    <script src="bower_components/json3/lib/json3.js"></script>
-    <script src="bower_components/angular-resource/angular-resource.js"></script>
-    <script src="bower_components/angular-cookies/angular-cookies.js"></script>
-    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
-    <script src="bower_components/angular-animate/angular-animate.js"></script>
-    <script src="bower_components/angular-touch/angular-touch.js"></script>
-    <script src="bower_components/angular-route/angular-route.js"></script>
+    <!--<script src="bower_components/angular/angular.js"></script>-->
+    <!--<script src="bower_components/json3/lib/json3.js"></script>-->
+    <!--<script src="bower_components/angular-resource/angular-resource.js"></script>-->
+    <!--<script src="bower_components/angular-cookies/angular-cookies.js"></script>-->
+    <!--<script src="bower_components/angular-sanitize/angular-sanitize.js"></script>-->
+    <!--<script src="bower_components/angular-animate/angular-animate.js"></script>-->
+    <!--<script src="bower_components/angular-touch/angular-touch.js"></script>-->
+    <!--<script src="bower_components/angular-route/angular-route.js"></script>-->
     <!-- endbower -->
     <!-- endbuild -->
 
