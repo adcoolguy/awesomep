@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=1024" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <title>Intro To Node | Node Boston Meetup 3/27/12 | by Le Zhang @le_isms</title>
+
+    <meta name="description" content="IntroToNode Presentation for Node Boston Meetup 3/27/12" />
+    <meta name="author" content="Le Zhang" />
+
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.min.js"></script>
+    <link href='http://fonts.googleapis.com/css?family=Pontano+Sans' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="http://introtonode.herokuapp.com/css/introtonode.css">
+</head>
+<body class="impress-not-supported">
+<script>
+    var app = angular.module('app', []);
+    app.controller('agendaController', function($scope){
+        $scope.agendaItems = [];
+        contents = [
+            "Various Stages in Construction of a building",
+            "Stake-holders & their levels of hierarchy from TCS to Labour",
+            "Survey Reports"
+        ];
+        for (i = 0, n = contents.length, x = -12000, y = -10000, scale = 2; i < n; i++) {
+            data = {'id': (i + 1), 'x': x, 'y': y, 'scale': scale, 'content': contents[i]}
+            $scope.agendaItems.push(data);
+            y += 1000;
+        }
+        
+    });
+    
+    app.run(function($rootScope) {
+      $rootScope.bootstrapper = 'You have successfully bootstrapped AngularJS';        
+      //alert('loaded');
+      $('#impress').jmpress();
+    });
+</script>
+<div id="impress" ng-controller="agendaController">
+    <div id="title" class="step" data-x="-1000" data-y="50">
+        <h1>Intro to Node.js</h1>
+        <h2>Le Zhang - @le_isms</h2>
+    </div>
+
+    <div id="agenda" class="step" data-x="-500" data-y="50">
+        <h3>Agenda:</h3>
+        <h3>What is Node?</h3>
+        <h3>Brief History</h3>
+        <h3>Pros/Cons</h3>
+        <h3>A few resources</h3>
+    </div>
+
+    <div class="step" id="agenda-{{agendaItem.id}}" data-x="{{$index}}*1000" data-y="-1500" ng-repeat="agendaItem in agendaItems">
+        <h1>{{agendaItem.content}}</h1>
+        <p>Text</p>
+    </div>
+    <!-- begin of test block -->
+    <!-- <div class="step" id="agenda-{{agendaItem.id}}" data-x="0" data-y="-1500">-->
+    <!--    <h1>1 {{agendaItem.content}}</h1>-->
+    <!--    <p>Text</p>-->
+    <!--</div>-->
+    <!-- <div class="step" id="agenda-{{agendaItem.id}}" data-x="1000" data-y="-1500">-->
+    <!--    <h1>2 {{agendaItem.content}}</h1>-->
+    <!--    <p>Text</p>-->
+    <!--</div>-->
+    <!-- <div class="step" id="agenda-{{agendaItem.id}}" data-x="2000" data-y="-1500">-->
+    <!--    <h1>3 {{agendaItem.content}}</h1>-->
+    <!--    <p>Text</p>-->
+    <!--</div>-->
+    <!-- end of test block -->
+</div>
+<div class="fallback-message">
+    <p>Your browser <b>doesn't support the features required</b> by impress.js, so you are presented with a simplified version of this presentation.</p>
+    <p>For the best experience please use the latest <b>Chrome</b>, <b>Safari</b> or <b>Firefox</b> browser.</p>
+</div>
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/impress.js/0.5.3/impress.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jmpress/0.4.5/jmpress.min.js"></script>
+<script>
+  // impress.init();
+$(function() {
+  // $('#impress').jmpress();
+});
+</script>
+
+</body>
+</html>
