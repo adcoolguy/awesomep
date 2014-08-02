@@ -64,8 +64,10 @@ app.directive('uiImpress', function () {
     };
 });
 
-function cb() {
-  alert('I got data from ContentService, yeah!');
+function cb(res) {
+  alert('I got data from ContentService, yeah! author [' + res.data[0].author + ']');
+  console.log(res);
+  
 }
 
 function randomData($scope, $http) {
