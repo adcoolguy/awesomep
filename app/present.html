@@ -65,9 +65,9 @@ app.directive('uiImpress', function () {
 });
 
 function cb(res) {
-  alert('I got data from ContentService, yeah! author [' + res.data[0].author + ']');
+  alert('100: ContentService responded author [' + res.data[0].author + ']');
   console.log(res);
-  
+  $scope.data = res.data[0];
 }
 
 function randomData($scope, $http) {
@@ -83,7 +83,7 @@ function randomData($scope, $http) {
 
     // var randomDataSource = "http://api.icndb.com/jokes/random/" + slides;
     // var randomDataSource = "https://script.googleusercontent.com/macros/echo?user_content_key=g3jJn8mc4EDli4_78fFE6X-E539HccVRIMamTaTzhJ4GzJjSU_Mmpn9LKXuVKsTIrP-CzO7Ofh5qRyfh9ZkZAQDMbrdAE9W_m5_BxDlH2jW0nuo2oDemN9CCS2h10ox_1xSncGQajx_ryfhECjZEnO2VxMsvENCyASFMhBamCj5M4dAlGsP-vEkcs0Q0IKyTnLuhxfwBpu5zpL-1vuSTjA&lib=MDXkAoIMXv4rbCs-aIjOT_nTpSR1OlyVI";
-    var randomDataSource = "https://script.google.com/macros/s/AKfycbyfELimRE5WFtYHUocEpnArHipg6WazmGR09fFULayA/dev";
+    var randomDataSource = "https://script.google.com/macros/s/AKfycbyfELimRE5WFtYHUocEpnArHipg6WazmGR09fFULayA/dev?t=json";
     
     function getRandomInt(min, max) {
         return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -109,12 +109,13 @@ function randomData($scope, $http) {
     }
 
     $http.jsonp(randomDataSource).then(function (response) {
-var myObj = angular.fromJson(response.data);
-console.log(myObj);
-        var messages = response.data.value.map(function (item) {
-            return item.joke;
-        });
-        $scope.data = generateData(messages);
+      var myObj = angular.fromJson(response.data);
+      console.log(myObj + ' ======> [' + response.data[0].author);
+
+      var messages = response.data.value.map(function (item) {
+          return item.joke;
+      });
+      $scope.data = generateData(messages);
     })
 };
 </script>
