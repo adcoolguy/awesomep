@@ -64,12 +64,12 @@ app.directive('uiImpress', function () {
     };
 });
 
-var data;
-function cb(res) {
-  alert('100: ContentService responded author [' + res.data[0].author + ']');
-  console.log(res);
-  data = res.data[0];
-}
+// var data;
+// function cb(res) {
+//   alert('100: ContentService responded author [' + res.data[0].author + ']');
+//   console.log(res);
+//   data = res.data[0];
+// }
 
 
 function randomData($scope, $http, $window, $timeout) {
@@ -112,9 +112,8 @@ function randomData($scope, $http, $window, $timeout) {
 
     $http.jsonp(randomDataSource)
       .success(function (response) {
-        //TODO the success is not called back by Google Apps Script for some reason! :(
         //var myObj = angular.fromJson(response.data);
-        console.log(' ======> [' + response.data[0].author);
+        console.log(' response.data[0].author ======> [' + response.data[0].author + "]");
         $scope.data = response.data[0];
         // var messages = response.data.value.map(function (item) {
         //     return item.joke;
@@ -126,18 +125,18 @@ function randomData($scope, $http, $window, $timeout) {
       });
 
     //this is just a workaround for GAS with no callback to AngularJS success() method!
-    $scope.$watch(
-        function () {
-          return $window.data; 
-        }, function(n, o){
-          $timeout(function(){
-            $scope.$apply(function(){
-              $scope.data = $window.data;
-            });
-            console.log("window.data changed ", n);
-          });
-        }
-    );
+    // $scope.$watch(
+    //     function () {
+    //       return $window.data; 
+    //     }, function(n, o){
+    //       $timeout(function(){
+    //         $scope.$apply(function(){
+    //           $scope.data = $window.data;
+    //         });
+    //         console.log("window.data changed ", n);
+    //       });
+    //     }
+    // );
 
 };
 </script>
