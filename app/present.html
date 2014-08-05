@@ -41,7 +41,7 @@
 
     <!-- Add your site or application content here -->
 <div ng-app="app" ng-controller="randomData" ui-impress>
-    <div ng-repeat="item in data" class="step" data-duration="2000" data-x="{{ item.coordinates.x }}" data-y="{{ item.coordinates.y }}" data-z="{{ item.coordinates.z }}" data-rotate-x="{{ item.rotate.x }}" data-rotate-y="{{ item.rotate.y }}" data-rotate-z="{{ item.rotate.z }}" data-scale="{{ item.scale }}">{{ item.message }}</div>
+    <div ng-repeat="item in data track by $index" class="step" data-duration="2000" data-x="{{ item.coordinates.x }}" data-y="{{ item.coordinates.y }}" data-z="{{ item.coordinates.z }}" data-rotate-x="{{ item.rotate.x }}" data-rotate-y="{{ item.rotate.y }}" data-rotate-z="{{ item.rotate.z }}" data-scale="{{ item.scale }}">TEST {{$index}} {{ item.author }}</div>
 </div>
 <script>
 var app = angular.module("app", []);
@@ -56,7 +56,7 @@ app.directive('uiImpress', function () {
 
                     $scope.$evalAsync(function () {
                         $($element).jmpress();
-                        init();
+                        //init();
                     });
                 };
             });
@@ -64,13 +64,15 @@ app.directive('uiImpress', function () {
     };
 });
 
+var data;
 function cb(res) {
   alert('100: ContentService responded author [' + res.data[0].author + ']');
   console.log(res);
-  $scope.data = res.data[0];
+  data = res.data[0];
 }
 
-function randomData($scope, $http) {
+
+function randomData($scope, $http, $window, $timeout) {
     $scope.data;
 
     var slides = 10;
@@ -83,7 +85,7 @@ function randomData($scope, $http) {
 
     // var randomDataSource = "http://api.icndb.com/jokes/random/" + slides;
     // var randomDataSource = "https://script.googleusercontent.com/macros/echo?user_content_key=g3jJn8mc4EDli4_78fFE6X-E539HccVRIMamTaTzhJ4GzJjSU_Mmpn9LKXuVKsTIrP-CzO7Ofh5qRyfh9ZkZAQDMbrdAE9W_m5_BxDlH2jW0nuo2oDemN9CCS2h10ox_1xSncGQajx_ryfhECjZEnO2VxMsvENCyASFMhBamCj5M4dAlGsP-vEkcs0Q0IKyTnLuhxfwBpu5zpL-1vuSTjA&lib=MDXkAoIMXv4rbCs-aIjOT_nTpSR1OlyVI";
-    var randomDataSource = "https://script.google.com/macros/s/AKfycbyfELimRE5WFtYHUocEpnArHipg6WazmGR09fFULayA/dev?t=json";
+    var randomDataSource = "https://script.google.com/macros/s/AKfycbyfELimRE5WFtYHUocEpnArHipg6WazmGR09fFULayA/dev?t=jsonp&callback=JSON_CALLBACK";
     
     function getRandomInt(min, max) {
         return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -108,15 +110,35 @@ function randomData($scope, $http) {
         });
     }
 
-    $http.jsonp(randomDataSource).then(function (response) {
-      var myObj = angular.fromJson(response.data);
-      console.log(myObj + ' ======> [' + response.data[0].author);
-
-      var messages = response.data.value.map(function (item) {
-          return item.joke;
+    $http.jsonp(randomDataSource)
+      .success(function (response) {
+        //TODO the success is not called back by Google Apps Script for some reason! :(
+        //var myObj = angular.fromJson(response.data);
+        console.log(' ======> [' + response.data[0].author);
+        $scope.data = response.data[0];
+        // var messages = response.data.value.map(function (item) {
+        //     return item.joke;
+        // })
+        // //$scope.data = generateData(messages);
+      })
+      .error(function (data) {
+        $scope.data = "Request failed";
       });
-      $scope.data = generateData(messages);
-    })
+
+    //this is just a workaround for GAS with no callback to AngularJS success() method!
+    $scope.$watch(
+        function () {
+          return $window.data; 
+        }, function(n, o){
+          $timeout(function(){
+            $scope.$apply(function(){
+              $scope.data = $window.data;
+            });
+            console.log("window.data changed ", n);
+          });
+        }
+    );
+
 };
 </script>
 
