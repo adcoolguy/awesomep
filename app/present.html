@@ -41,7 +41,7 @@
 
     <!-- Add your site or application content here -->
 <div ng-app="app" ng-controller="randomData" ui-impress>
-    <div ng-repeat="item in data track by $index" class="step" data-duration="2000" data-x="{{ item.coordinates.x }}" data-y="{{ item.coordinates.y }}" data-z="{{ item.coordinates.z }}" data-rotate-x="{{ item.rotate.x }}" data-rotate-y="{{ item.rotate.y }}" data-rotate-z="{{ item.rotate.z }}" data-scale="{{ item.scale }}">TEST {{$index}} {{ item.author }}</div>
+    <div ng-repeat="item in data[0] track by $index" class="step" data-duration="2000" data-x="{{ item.coordinates.x }}" data-y="{{ item.coordinates.y + $index*100}}" data-z="{{ item.coordinates.z }}" data-rotate-x="{{ item.rotate.x }}" data-rotate-y="{{ item.rotate.y }}" data-rotate-z="{{ item.rotate.z }}" data-scale="{{ item.scale }}">TEST {{$index}} {{ item }}</div>
 </div>
 <script>
 var app = angular.module("app", []);
@@ -53,9 +53,9 @@ app.directive('uiImpress', function () {
         link: function ($scope, $element) {
             var init = $scope.$watch('data', function (data) {
                 if (data) {
-
                     $scope.$evalAsync(function () {
                         $($element).jmpress();
+                        console.log('jimpress initialized!');
                         //init();
                     });
                 };
@@ -73,7 +73,7 @@ app.directive('uiImpress', function () {
 
 
 function randomData($scope, $http, $window, $timeout) {
-    $scope.data;
+//    $scope.data;
 
     var slides = 10;
 
@@ -114,7 +114,7 @@ function randomData($scope, $http, $window, $timeout) {
       .success(function (response) {
         //var myObj = angular.fromJson(response.data);
         console.log(' response.data[0].author ======> [' + response.data[0].author + "]");
-        $scope.data = response.data[0];
+        $scope.data = response.data;
         // var messages = response.data.value.map(function (item) {
         //     return item.joke;
         // })
