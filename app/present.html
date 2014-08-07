@@ -41,7 +41,15 @@
 
     <!-- Add your site or application content here -->
 <div ng-app="app" ng-controller="randomData" ui-impress>
-    <div ng-repeat="item in data[0] track by $index" class="step" data-duration="2000" data-x="{{ item.coordinates.x }}" data-y="{{ item.coordinates.y + $index*100}}" data-z="{{ item.coordinates.z }}" data-rotate-x="{{ item.rotate.x }}" data-rotate-y="{{ item.rotate.y }}" data-rotate-z="{{ item.rotate.z }}" data-scale="{{ item.scale }}">TEST {{$index}} {{ item }}</div>
+    <div ng-repeat="item in newdata" 
+    class="step" data-duration="2000" data-x="{{ item.coordinates.x }}" data-y="{{ item.coordinates.y + $index*100}}" data-z="{{ item.coordinates.z }}" 
+    data-rotate-x="{{ item.rotate.x }}" data-rotate-y="{{ item.rotate.y }}" data-rotate-z="{{ item.rotate.z }}" data-scale="{{ item.scale }}">TEST {{$index}} {{ item }}
+    </div>
+    <!--<div ng-repeat="item in ['ONE','TWO','THREE'] track by $index" -->
+    <!--class="step" data-duration="2000" data-x="{{ item.coordinates.x }}" data-y="{{ item.coordinates.y + $index*100}}" data-z="{{ item.coordinates.z }}" -->
+    <!--data-rotate-x="{{ item.rotate.x }}" data-rotate-y="{{ item.rotate.y }}" data-rotate-z="{{ item.rotate.z }}" data-scale="{{ item.scale }}">TEST {{$index}} {{ item }}-->
+    <!--</div>-->
+    <!--<div ng-repeat="item in [1,1,1] track by $index">{{ item }}</div>-->
 </div>
 <script>
 var app = angular.module("app", []);
@@ -54,6 +62,11 @@ app.directive('uiImpress', function () {
             var init = $scope.$watch('data', function (data) {
                 if (data) {
                     $scope.$evalAsync(function () {
+                        console.log(' $scope.data[0] check ======> [' 
+                        // + $scope.data[0].author + "\n"
+                        + $scope.newdata[0] + "\n"
+                        + $scope.newdata[1] + "\n"
+                        + "]");
                         $($element).jmpress();
                         console.log('jimpress initialized!');
                         //init();
@@ -113,15 +126,27 @@ function randomData($scope, $http, $window, $timeout) {
     $http.jsonp(randomDataSource)
       .success(function (response) {
         //var myObj = angular.fromJson(response.data);
-        console.log(' response.data[0].author ======> [' + response.data[0].author + "]");
-        $scope.data = response.data;
+        console.log(' response.data[0].author ======> [' 
+        + response.data[0].author +"\n "
+        + response.data[0].t1 +"\n "
+        + response.data[0].t2
+        + "]");
+        $scope.newdata = [];
+var obj = response.data[0]; //JSON.parse(response.data[0]) ;
+for(var prop in obj) {
+    if(obj.hasOwnProperty(prop))
+        console.info(obj[prop]); // value
+        console.info(prop); // key name
+    $scope.newdata.push({prop: obj[prop]});
+}
+
         // var messages = response.data.value.map(function (item) {
         //     return item.joke;
         // })
         // //$scope.data = generateData(messages);
       })
       .error(function (data) {
-        $scope.data = "Request failed";
+        $scope.newdata = "Request failed";
       });
 
     //this is just a workaround for GAS with no callback to AngularJS success() method!
