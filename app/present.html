@@ -43,7 +43,7 @@
 <div ng-app="app" ng-controller="randomData" ui-impress>
     <div ng-repeat="item in newdata" 
     class="step" data-duration="2000" data-x="{{ item.coordinates.x }}" data-y="{{ item.coordinates.y + $index*100}}" data-z="{{ item.coordinates.z }}" 
-    data-rotate-x="{{ item.rotate.x }}" data-rotate-y="{{ item.rotate.y }}" data-rotate-z="{{ item.rotate.z }}" data-scale="{{ item.scale }}">TEST {{$index}} {{ item }} <p> {{ item.prop }}</p>
+    data-rotate-x="{{ item.rotate.x }}" data-rotate-y="{{ item.rotate.y }}" data-rotate-z="{{ item.rotate.z }}" data-scale="{{ item.scale }}">TEST {{$index}} {{ item.prop.key }} <p> {{ item.prop.value }}</p>
     </div>
     <!--<div ng-repeat="item in ['ONE','TWO','THREE'] track by $index" -->
     <!--class="step" data-duration="2000" data-x="{{ item.coordinates.x }}" data-y="{{ item.coordinates.y + $index*100}}" data-z="{{ item.coordinates.z }}" -->
@@ -132,13 +132,20 @@ function randomData($scope, $http, $window, $timeout) {
         + response.data[0].t2
         + "]");
         $scope.newdata = [];
-var obj = response.data[0]; //JSON.parse(response.data[0]) ;
-for(var prop in obj) {
-    if(obj.hasOwnProperty(prop))
-        console.info('key = [' +prop + ']'); // key name
-        console.info('val = [' + obj[prop] + ']'); // value
-    $scope.newdata.push({prop: obj[prop]});
-}
+        var obj = response.data[0]; //JSON.parse(response.data[0]) ;
+        var count = 0;
+        for(var prop in obj) {
+            if(obj.hasOwnProperty(prop)) {
+                console.info('key = [' + prop + ']'); // key name
+                console.info('val = [' + obj[prop] + ']'); // value
+                if (prop.charAt(0) !== 't' && prop.charAt(0) !== 'b')
+                    $scope.newdata.push({prop: {key: prop, value: obj[prop]}});
+                if (prop.charAt(0) === 't') {
+                    $scope.newdata.push({prop: {key: obj[prop], value: obj[count+1]}}); //TODO the value needs to be the second json object!!!
+                    count++;
+                }
+            }
+        }
 
         // var messages = response.data.value.map(function (item) {
         //     return item.joke;
