@@ -43,7 +43,7 @@
 <div ng-app="app" ng-controller="randomData" ui-impress>
     <div ng-repeat="item in newdata" 
     class="step" data-duration="2000" data-x="{{ item.coordinates.x }}" data-y="{{ item.coordinates.y + $index*100}}" data-z="{{ item.coordinates.z }}" 
-    data-rotate-x="{{ item.rotate.x }}" data-rotate-y="{{ item.rotate.y }}" data-rotate-z="{{ item.rotate.z }}" data-scale="{{ item.scale }}">TEST {{$index}} {{ item }}
+    data-rotate-x="{{ item.rotate.x }}" data-rotate-y="{{ item.rotate.y }}" data-rotate-z="{{ item.rotate.z }}" data-scale="{{ item.scale }}">TEST {{$index}} {{ item }} <p> {{ item.prop }}</p>
     </div>
     <!--<div ng-repeat="item in ['ONE','TWO','THREE'] track by $index" -->
     <!--class="step" data-duration="2000" data-x="{{ item.coordinates.x }}" data-y="{{ item.coordinates.y + $index*100}}" data-z="{{ item.coordinates.z }}" -->
@@ -59,7 +59,7 @@ app.directive('uiImpress', function () {
         restrict: 'A',
         scope: false,
         link: function ($scope, $element) {
-            var init = $scope.$watch('data', function (data) {
+            var init = $scope.$watch('newdata', function (data) {
                 if (data) {
                     $scope.$evalAsync(function () {
                         console.log(' $scope.data[0] check ======> [' 
@@ -135,8 +135,8 @@ function randomData($scope, $http, $window, $timeout) {
 var obj = response.data[0]; //JSON.parse(response.data[0]) ;
 for(var prop in obj) {
     if(obj.hasOwnProperty(prop))
-        console.info(obj[prop]); // value
-        console.info(prop); // key name
+        console.info('key = [' +prop + ']'); // key name
+        console.info('val = [' + obj[prop] + ']'); // value
     $scope.newdata.push({prop: obj[prop]});
 }
 
