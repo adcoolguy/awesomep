@@ -100,28 +100,28 @@ function randomData($scope, $http, $window, $timeout) {
     // var randomDataSource = "https://script.googleusercontent.com/macros/echo?user_content_key=g3jJn8mc4EDli4_78fFE6X-E539HccVRIMamTaTzhJ4GzJjSU_Mmpn9LKXuVKsTIrP-CzO7Ofh5qRyfh9ZkZAQDMbrdAE9W_m5_BxDlH2jW0nuo2oDemN9CCS2h10ox_1xSncGQajx_ryfhECjZEnO2VxMsvENCyASFMhBamCj5M4dAlGsP-vEkcs0Q0IKyTnLuhxfwBpu5zpL-1vuSTjA&lib=MDXkAoIMXv4rbCs-aIjOT_nTpSR1OlyVI";
     var randomDataSource = "https://script.google.com/macros/s/AKfycbyfELimRE5WFtYHUocEpnArHipg6WazmGR09fFULayA/dev?t=jsonp&callback=JSON_CALLBACK";
     
-    function getRandomInt(min, max) {
-        return Math.floor(Math.random() * (max - min + 1)) + min;
-    }
+    // function getRandomInt(min, max) {
+    //     return Math.floor(Math.random() * (max - min + 1)) + min;
+    // }
 
-    function generateData(messages) {
-        return _.range(slides).map(function (value, index) {
-            return {
-                message: messages[index],
-                coordinates: {
-                    x: getRandomInt.apply(null, config.coordinates),
-                    y: getRandomInt.apply(null, config.coordinates),
-                    z: getRandomInt.apply(null, config.coordinates)
-                },
-                rotate: {
-                    x: getRandomInt.apply(null, config.rotate),
-                    y: getRandomInt.apply(null, config.rotate),
-                    z: getRandomInt.apply(null, config.rotate)
-                },
-                scale: getRandomInt.apply(null, config.scale)
-            };
-        });
-    }
+    // function generateData(messages) {
+    //     return _.range(slides).map(function (value, index) {
+    //         return {
+    //             message: messages[index],
+    //             coordinates: {
+    //                 x: getRandomInt.apply(null, config.coordinates),
+    //                 y: getRandomInt.apply(null, config.coordinates),
+    //                 z: getRandomInt.apply(null, config.coordinates)
+    //             },
+    //             rotate: {
+    //                 x: getRandomInt.apply(null, config.rotate),
+    //                 y: getRandomInt.apply(null, config.rotate),
+    //                 z: getRandomInt.apply(null, config.rotate)
+    //             },
+    //             scale: getRandomInt.apply(null, config.scale)
+    //         };
+    //     });
+    // }
 
     $http.jsonp(randomDataSource)
       .success(function (response) {
