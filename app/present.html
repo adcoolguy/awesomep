@@ -41,7 +41,7 @@
 
     <!-- Add your site or application content here -->
 <div ng-app="app" ng-controller="randomData" ui-impress>
-    <div ng-repeat="item in newdata" 
+    <div ng-repeat="item in newdata track by $index" 
     class="step" data-duration="2000" data-x="{{ item.coordinates.x }}" data-y="{{ item.coordinates.y + $index*100}}" data-z="{{ item.coordinates.z }}" 
     data-rotate-x="{{ item.rotate.x }}" data-rotate-y="{{ item.rotate.y }}" data-rotate-z="{{ item.rotate.z }}" data-scale="{{ item.scale }}">TEST {{$index}} {{ item.prop.key }} <p> {{ item.prop.value }}</p>
     </div>
@@ -134,15 +134,20 @@ function randomData($scope, $http, $window, $timeout) {
         $scope.newdata = [];
         var obj = response.data[0]; //JSON.parse(response.data[0]) ;
         var count = 0;
+        var previousObj = {};
         for(var prop in obj) {
             if(obj.hasOwnProperty(prop)) {
                 console.info('key = [' + prop + ']'); // key name
                 console.info('val = [' + obj[prop] + ']'); // value
-                if (prop.charAt(0) !== 't' && prop.charAt(0) !== 'b')
-                    $scope.newdata.push({prop: {key: prop, value: obj[prop]}});
-                if (prop.charAt(0) === 't') {
-                    $scope.newdata.push({prop: {key: obj[prop], value: obj[count+1]}}); //TODO the value needs to be the second json object!!!
-                    count++;
+                if (prop.charAt(0) !== 't' && prop.charAt(0) !== 'b') {
+                  $scope.newdata.push({prop: {key: prop, value: obj[prop]}});
+                } else if (prop.charAt(0) === 't') {
+                  previousObj = {prop: {key: obj[prop], value: undefined}}; //TODO the value needs to be the second json object!!!
+                }
+                else if (prop.charAt(0) === 'b') {
+                  if(previousObj.prop) previousObj.prop.value = obj[prop];
+                  $scope.newdata.push(previousObj); //TODO the value needs to be the second json object!!!
+                  // previousObj = {}
                 }
             }
         }
