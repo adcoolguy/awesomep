@@ -27,7 +27,7 @@
 
     <div ng-repeat="item in newdata track by $index"
          class="step" data-duration="2000" data-x="{{ item.coordinates.x }}"
-         data-y="{{ item.coordinates.y + $index*100}}" data-z="{{ item.coordinates.z }}"
+         data-y="{{ item.coordinates.y + $index*300}}" data-z="{{ item.coordinates.z }}"
          data-rotate-x="{{ item.rotate.x }}" data-rotate-y="{{ item.rotate.y }}" data-rotate-z="{{ item.rotate.z }}"
          data-scale="{{ item.scale }}">TEST {{$index}} {{ item.prop.key }} <p> {{ item.prop.value }}</p>
     </div>
@@ -57,8 +57,9 @@
 
 <!-- build:js(.) scripts/oldieshim.js -->
 <!--[if lt IE 9]>
-<script src="bower_components/es5-shim/es5-shim.js"></script>
-<script src="bower_components/json3/lib/json3.min.js"></script>
+<script src="../bower_components/es5-shim/es5-shim.js"></script>
+<script src="../bower_components/json3/lib/json3.min.js"></script>
+
 <![endif]-->
 <!-- endbuild -->
 
@@ -81,6 +82,8 @@
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.17/angular-resource.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jmpress/0.4.5/jmpress.min.js"></script>
+<script src="../bower_components/lodash/dist/lodash.compat.min.js"></script>
+
 <!-- build:js({.tmp,app}) scripts/scripts.js -->
 <script src="scripts/app.js"></script>
 <!--<script src="scripts/controllers/main.js"></script>-->

@@ -1,6 +1,11 @@
 'use strict';
 
-var app = angular.module("app", []);
+var underscore = angular.module('underscore', []);
+underscore.factory('_', function() {
+    return window._; // assumes underscore has already been loaded on the page
+});
+
+var app = angular.module("app", ['underscore']);
 
 app.directive('uiImpress', function () {
     return {
@@ -44,7 +49,7 @@ app.directive('uiImpress', function () {
 //   data = res.data[0];
 // }
 
-app.controller('randomData', function ($scope, $http, $window, $timeout, $interval) {
+app.controller('randomData', function ($scope, $http, $window, $timeout, $interval, _) {
     var slides = 10;
 
     var config = {
@@ -84,10 +89,11 @@ app.controller('randomData', function ($scope, $http, $window, $timeout, $interv
       .success(function (response) {
         //var myObj = angular.fromJson(response.data);
         console.log(' response.data[0].author ======> [' 
-        + response.data[0].author +"\n "
-        + response.data[0].t1 +"\n "
-        + response.data[0].t2
+        + response.data[0].author +"] \n t1 ["
+        + response.data[0].t1 +"] \n t2 ["
+        + response.data[0].t2 + "]"
         + "]");
+        $scope.newmeta = [];
         $scope.newdata = [];
         var obj = response.data[0]; //JSON.parse(response.data[0]) ;
         var count = 0;
@@ -97,17 +103,21 @@ app.controller('randomData', function ($scope, $http, $window, $timeout, $interv
                 console.info('key = [' + prop + ']'); // key name
                 console.info('val = [' + obj[prop] + ']'); // value
                 if (prop.charAt(0) !== 't' && prop.charAt(0) !== 'b') {
-                  $scope.newdata.push({prop: {key: prop, value: obj[prop]}});
+                    $scope.newmeta.push({prop: {key: prop, value: obj[prop]}});
                 } else if (prop.charAt(0) === 't') {
-                  previousObj = {prop: {key: obj[prop], value: undefined}}; //TODO the value needs to be the second json object!!!
+                    previousObj = {prop: {key: obj[prop], value: undefined}}; //TODO the value needs to be the second json object!!!
                 }
                 else if (prop.charAt(0) === 'b') {
-                  if(previousObj.prop) previousObj.prop.value = obj[prop];
-                  $scope.newdata.push(previousObj); //TODO the value needs to be the second json object!!!
-                  // previousObj = {}
+                    if(previousObj.prop) previousObj.prop.value = obj[prop];
+                    //if(previousObj.prop.key.trim().length > 0
+                        //&& previousObj.prop.value.trim().length > 0
+                    //) {
+                        $scope.newdata.push(previousObj);
+                    //}
                 }
             }
         }
+        _.compact($scope.newdata);
 
         // var messages = response.data.value.map(function (item) {
         //     return item.joke;
@@ -138,9 +148,7 @@ app.controller('randomData', function ($scope, $http, $window, $timeout, $interv
       //console.log($scope.countDown);
       if($scope.countDown <=0) {
         $scope.countDown = $scope.START_COUNT;
-        $('#jmpress').jmpress('next');
-        //$window.jmpress.jmpress('next');
-        //$window.jmpress().jmpress('jump', '#step-5', 'i said so');
+        //$('#jmpress').jmpress('next');
       }
     },1000,0);
 
