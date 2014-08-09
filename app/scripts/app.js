@@ -109,11 +109,10 @@ app.controller('randomData', function ($scope, $http, $window, $timeout, $interv
                 }
                 else if (prop.charAt(0) === 'b') {
                     if(previousObj.prop) previousObj.prop.value = obj[prop];
-                    //if(previousObj.prop.key.trim().length > 0
-                        //&& previousObj.prop.value.trim().length > 0
-                    //) {
+                    if(typeof previousObj.prop !== 'undefined' && previousObj.prop.key.trim() !== '' && previousObj.prop.key.trim().length > 0
+                    ) {
                         $scope.newdata.push(previousObj);
-                    //}
+                    }
                 }
             }
         }
