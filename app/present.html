@@ -21,18 +21,23 @@
     your browser</a> to improve your experience.</p>
 <![endif]-->
 
+<div ng-controller="randomData">
+    <div class="right" style="float: right;"><h1 style="position:relative;float:right;">{{countDown}}</h1></div>
+    <div class="left" style="float: left;">
+        <h2>{{::topic}}</h2>
+        <h2>{{::author}}</h2>
+        <h2>{{::created}}</h2>
+        <h2>{{::updated}}</h2>
+    </div>
+</div>
+
 <!-- Add your site or application content here -->
 <div id="jmpress" ng-controller="randomData" ui-impress>
-    <h1 style="position:relative;float:right;">{{countDown}}</h1>
-    <h2>{{::topic}}</h2>
-    <h2>{{::author}}</h2>
-    <h2>{{::created}}</h2>
-    <h2>{{::updated}}</h2>
     <div ng-repeat="item in newdata track by $index"
          class="step" data-duration="2000" data-x="{{ item.coordinates.x }}"
          data-y="{{ item.coordinates.y + $index*300}}" data-z="{{ item.coordinates.z }}"
          data-rotate-x="{{ item.rotate.x }}" data-rotate-y="{{ item.rotate.y }}" data-rotate-z="{{ item.rotate.z }}"
-         data-scale="{{ item.scale }}">TEST {{$index}} {{ item.prop.key }} <p> {{ item.prop.value }}</p>
+         data-scale="{{ item.scale }}">Slide {{$index+1}}: {{ item.prop.key }} <p> {{ item.prop.value }}</p>
     </div>
     <!--<div ng-repeat="item in ['ONE','TWO','THREE'] track by $index" -->
     <!--class="step" data-duration="2000" data-x="{{ item.coordinates.x }}" data-y="{{ item.coordinates.y + $index*100}}" data-z="{{ item.coordinates.z }}" -->
