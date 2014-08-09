@@ -35,7 +35,7 @@
 <div id="jmpress" ng-controller="randomData" ui-impress>
     <div ng-repeat="item in newdata track by $index"
          class="step" data-duration="2000" data-x="{{ item.coordinates.x }}"
-         data-y="{{ item.coordinates.y + $index*300}}" data-z="{{ item.coordinates.z }}"
+         data-y="{{ item.coordinates.y + $index*180}}" data-z="{{ item.coordinates.z }}"
          data-rotate-x="{{ item.rotate.x }}" data-rotate-y="{{ item.rotate.y }}" data-rotate-z="{{ item.rotate.z }}"
          data-scale="{{ item.scale }}">Slide {{$index+1}}: {{ item.prop.key }} <p> {{ item.prop.value }}</p>
     </div>

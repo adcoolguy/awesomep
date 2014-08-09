@@ -21,7 +21,11 @@ app.directive('uiImpress', function () {
                         + $scope.newdata[1] + "\n"
                         + "]");
                         $($element).jmpress();
-
+                        //$($element).jmpress({
+                        //    stepSelector: "section"
+                        //    ,hash: { use: false }
+                        //});
+                        //start: "step-1"
                         // $('.step')
                         //     .on('enterStep', function(event) {
                         //         // Called when entering only this step
@@ -145,14 +149,14 @@ app.controller('randomData', function ($scope, $http, $window, $timeout, $interv
     //       });
     //     }
     // );
-    $scope.START_COUNT = 2;
+    $scope.START_COUNT = 6;
     $scope.countDown = $scope.START_COUNT;
     $interval(function($window){
       $scope.countDown--;
       //console.log($scope.countDown);
       if($scope.countDown <=0) {
         $scope.countDown = $scope.START_COUNT;
-        //$('#jmpress').jmpress('next');
+        $('#jmpress').jmpress('next');
       }
     },1000,0);
 
