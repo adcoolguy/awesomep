@@ -88,11 +88,16 @@ app.controller('randomData', function ($scope, $http, $window, $timeout, $interv
     $http.jsonp(randomDataSource)
       .success(function (response) {
         //var myObj = angular.fromJson(response.data);
-        console.log(' response.data[0].author ======> [' 
-        + response.data[0].author +"] \n t1 ["
-        + response.data[0].t1 +"] \n t2 ["
-        + response.data[0].t2 + "]"
+        console.log(' response.data[0].topic ======> ['
+        + response.data[0].topic +"] \n author ["
+        + response.data[0].author +"] \n created ["
+        + response.data[0].created +"] \n updated ["
+        + response.data[0].updated + "]"
         + "]");
+        $scope.author = response.data[0].author;
+        $scope.topic = response.data[0].topic;
+        $scope.created = response.data[0].created;
+        $scope.updated = response.data[0].updated;
         $scope.newmeta = [];
         $scope.newdata = [];
         var obj = response.data[0]; //JSON.parse(response.data[0]) ;
