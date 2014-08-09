@@ -60,7 +60,7 @@ app.directive('uiImpress', function () {
     return {
         restrict: 'A',
         scope: false,
-        link: function ($scope, $element) {
+        link: function ($scope, $element, $window) {
             var init = $scope.$watch('newdata', function (data) {
                 if (data) {
                     $scope.$evalAsync(function () {
@@ -69,7 +69,8 @@ app.directive('uiImpress', function () {
                         + $scope.newdata[0] + "\n"
                         + $scope.newdata[1] + "\n"
                         + "]");
-                        $($element).jmpress();
+                        $window.jimpress = $($element);
+                        $window.jimpress.jmpress();
                         console.log('jimpress initialized!');
                         //init();
                     });
@@ -175,13 +176,14 @@ app.controller('randomData', function ($scope, $http, $window, $timeout, $interv
     // );
     $scope.START_COUNT = 2;
     $scope.countDown = $scope.START_COUNT;
-    $interval(function(){
+    $interval(function($window){
       $scope.countDown--;
       //console.log($scope.countDown);
       if($scope.countDown <=0) {
         $scope.countDown = $scope.START_COUNT;
-        //$('#jmpress').jmpress('next');
-        $('#jmpress').jmpress('jump', '#step-5', 'i said so');
+        $('#jmpress').jmpress('next');
+        //$window.jmpress.jmpress('next');
+        //$window.jimpress().jimpress('jump', '#step-5', 'i said so');
       }
       
     },1000,0);
