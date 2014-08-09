@@ -1,6 +1,5 @@
 'use strict';
 
-var jmpress;
 var app = angular.module("app", []);
 
 app.directive('uiImpress', function () {
@@ -16,7 +15,7 @@ app.directive('uiImpress', function () {
                         + $scope.newdata[0] + "\n"
                         + $scope.newdata[1] + "\n"
                         + "]");
-                        jmpress = $($element).jmpress();
+                        $($element).jmpress();
 
                         // $('.step')
                         //     .on('enterStep', function(event) {
@@ -29,7 +28,7 @@ app.directive('uiImpress', function () {
                         //     });
 
 
-                        console.log('jmpress 107d initialized!');
+                        console.log('jmpress 107e initialized!');
                         //init();
                     });
                 };

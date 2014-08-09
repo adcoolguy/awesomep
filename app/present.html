@@ -1,6 +1,6 @@
 <!doctype html>
 <html class="no-js">
-  <head>
+<head>
     <meta charset="utf-8">
     <title></title>
     <meta name="description" content="">
@@ -14,18 +14,22 @@
     <link rel="stylesheet" href="styles/main.css">
     <link rel="stylesheet" href="styles/present.css">
     <!-- endbuild -->
-  </head>
-  <body ng-app="app">
-    <!--[if lt IE 7]>
-      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-    <![endif]-->
-    
-    <!-- Add your site or application content here -->
+</head>
+<body ng-app="app">
+<!--[if lt IE 7]>
+<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
+    your browser</a> to improve your experience.</p>
+<![endif]-->
+
+<!-- Add your site or application content here -->
 <div id="jmpress" ng-controller="randomData" ui-impress>
     <h1 style="float:left;">{{countDown}}</h1>
-    <div ng-repeat="item in newdata track by $index" 
-    class="step" data-duration="2000" data-x="{{ item.coordinates.x }}" data-y="{{ item.coordinates.y + $index*100}}" data-z="{{ item.coordinates.z }}" 
-    data-rotate-x="{{ item.rotate.x }}" data-rotate-y="{{ item.rotate.y }}" data-rotate-z="{{ item.rotate.z }}" data-scale="{{ item.scale }}">TEST {{$index}} {{ item.prop.key }} <p> {{ item.prop.value }}</p>
+
+    <div ng-repeat="item in newdata track by $index"
+         class="step" data-duration="2000" data-x="{{ item.coordinates.x }}"
+         data-y="{{ item.coordinates.y + $index*100}}" data-z="{{ item.coordinates.z }}"
+         data-rotate-x="{{ item.rotate.x }}" data-rotate-y="{{ item.rotate.y }}" data-rotate-z="{{ item.rotate.z }}"
+         data-scale="{{ item.scale }}">TEST {{$index}} {{ item.prop.key }} <p> {{ item.prop.value }}</p>
     </div>
     <!--<div ng-repeat="item in ['ONE','TWO','THREE'] track by $index" -->
     <!--class="step" data-duration="2000" data-x="{{ item.coordinates.x }}" data-y="{{ item.coordinates.y + $index*100}}" data-z="{{ item.coordinates.z }}" -->
@@ -33,47 +37,54 @@
     <!--</div>-->
     <!--<div ng-repeat="item in [1,1,1] track by $index">{{ item }}</div>-->
 </div>
-    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
-     <script>
-       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-       })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+<!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
 
-       ga('create', 'UA-XXXXX-X');
-       ga('send', 'pageview');
-    </script>
+    ga('create', 'UA-XXXXX-X');
+    ga('send', 'pageview');
+</script>
 
-    <!-- build:js(.) scripts/oldieshim.js -->
-    <!--[if lt IE 9]>
-    <script src="bower_components/es5-shim/es5-shim.js"></script>
-    <script src="bower_components/json3/lib/json3.min.js"></script>
-    <![endif]-->
-    <!-- endbuild -->
+<!-- build:js(.) scripts/oldieshim.js -->
+<!--[if lt IE 9]>
+<script src="bower_components/es5-shim/es5-shim.js"></script>
+<script src="bower_components/json3/lib/json3.min.js"></script>
+<![endif]-->
+<!-- endbuild -->
 
-    <!-- build:js(.) scripts/vendor.js -->
-    <!-- bower:js -->
-    <!--<script src="bower_components/angular/angular.js"></script>-->
-    <!--<script src="bower_components/json3/lib/json3.js"></script>-->
-    <!--<script src="bower_components/angular-resource/angular-resource.js"></script>-->
-    <!--<script src="bower_components/angular-cookies/angular-cookies.js"></script>-->
-    <!--<script src="bower_components/angular-sanitize/angular-sanitize.js"></script>-->
-    <!--<script src="bower_components/angular-animate/angular-animate.js"></script>-->
-    <!--<script src="bower_components/angular-touch/angular-touch.js"></script>-->
-    <!--<script src="bower_components/angular-route/angular-route.js"></script>-->
-    <!-- endbower -->
-    <!-- endbuild -->
+<!-- build:js(.) scripts/vendor.js -->
+<!-- bower:js -->
+<!--<script src="bower_components/angular/angular.js"></script>-->
+<!--<script src="bower_components/json3/lib/json3.js"></script>-->
+<!--<script src="bower_components/angular-resource/angular-resource.js"></script>-->
+<!--<script src="bower_components/angular-cookies/angular-cookies.js"></script>-->
+<!--<script src="bower_components/angular-sanitize/angular-sanitize.js"></script>-->
+<!--<script src="bower_components/angular-animate/angular-animate.js"></script>-->
+<!--<script src="bower_components/angular-touch/angular-touch.js"></script>-->
+<!--<script src="bower_components/angular-route/angular-route.js"></script>-->
+<!-- endbower -->
+<!-- endbuild -->
 
-    <!--<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular.js"></script>-->
-    <!--<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular-resource.js"></script>-->
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.17/angular.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.17/angular-resource.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jmpress/0.4.5/jmpress.min.js"></script>
-    <!-- build:js({.tmp,app}) scripts/scripts.js -->
-    <script src="scripts/app.js"></script>
-    <!--<script src="scripts/controllers/main.js"></script>-->
-    <!--<script src="scripts/controllers/about.js"></script>-->
-    <!-- endbuild -->
+<!--<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular.js"></script>-->
+<!--<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular-resource.js"></script>-->
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.17/angular.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.17/angular-resource.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jmpress/0.4.5/jmpress.min.js"></script>
+<!-- build:js({.tmp,app}) scripts/scripts.js -->
+<script src="scripts/app.js"></script>
+<!--<script src="scripts/controllers/main.js"></script>-->
+<!--<script src="scripts/controllers/about.js"></script>-->
+<!-- endbuild -->
 </body>
 </html>
