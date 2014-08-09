@@ -41,7 +41,7 @@
     <![endif]-->
     
     <!-- Add your site or application content here -->
-<div id="jimpress" ng-controller="randomData" ui-impress>
+<div id="jmpress" ng-controller="randomData" ui-impress>
     <h1>{{countDown}}</h1>
     <div ng-repeat="item in newdata track by $index" 
     class="step" data-duration="2000" data-x="{{ item.coordinates.x }}" data-y="{{ item.coordinates.y + $index*100}}" data-z="{{ item.coordinates.z }}" 
@@ -54,7 +54,7 @@
     <!--<div ng-repeat="item in [1,1,1] track by $index">{{ item }}</div>-->
 </div>
 <script>
-var jimpress;
+var jmpress;
 var app = angular.module("app", []);
 
 app.directive('uiImpress', function () {
@@ -70,12 +70,12 @@ app.directive('uiImpress', function () {
                         + $scope.newdata[0] + "\n"
                         + $scope.newdata[1] + "\n"
                         + "]");
-                        jimpress = $($element).jmpress();
-                        //$window.jimpress.init();
-                        // document.addEventListener('jimpress:stepenter', function(e){
+                        jmpress = $($element).jmpress();
+                        //$window.jmpress.init();
+                        // document.addEventListener('jmpress:stepenter', function(e){
                         // if (typeof timing !== 'undefined') clearInterval(timing);
-                        var duration = (event.target.getAttribute('data-transition-duration') ? event.target.getAttribute('data-transition-duration') : 2000); // use the set duration or fallback to 2000ms
-                        timing = setInterval(jmpress.next(), duration);
+//                        var duration = (event.target.getAttribute('data-transition-duration') ? event.target.getAttribute('data-transition-duration') : 2000); // use the set duration or fallback to 2000ms
+//                        timing = setInterval(jmpress.next(), duration);
                         // });
 // $('.step')
 //     .on('enterStep', function(event) {
@@ -88,7 +88,7 @@ app.directive('uiImpress', function () {
 //     });
 
 
-                        console.log('jimpress 107initialized!');
+                        console.log('jmpress 107b initialized!');
                         //init();
                     });
                 };
@@ -200,9 +200,8 @@ app.controller('randomData', function ($scope, $http, $window, $timeout, $interv
         $scope.countDown = $scope.START_COUNT;
         $('#jmpress').jmpress('next');
         //$window.jmpress.jmpress('next');
-        //$window.jimpress().jimpress('jump', '#step-5', 'i said so');
+        //$window.jmpress().jmpress('jump', '#step-5', 'i said so');
       }
-      
     },1000,0);
 
 });
