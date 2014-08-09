@@ -37,7 +37,7 @@ app.directive('uiImpress', function () {
                         //     });
 
 
-                        console.log('jmpress 107e initialized!');
+                        console.log('jmpress 107f initialized!');
                         //init();
                     });
                 };
@@ -114,7 +114,7 @@ app.controller('randomData', function ($scope, $http, $window, $timeout, $interv
                 if (prop.charAt(0) !== 't' && prop.charAt(0) !== 'b') {
                     $scope.newmeta.push({prop: {key: prop, value: obj[prop]}});
                 } else if (prop.charAt(0) === 't') {
-                    previousObj = {prop: {key: obj[prop], value: undefined}}; //TODO the value needs to be the second json object!!!
+                    previousObj = {prop: {key: obj[prop], value: undefined}};
                 }
                 else if (prop.charAt(0) === 'b') {
                     if(previousObj.prop) previousObj.prop.value = obj[prop];
@@ -139,7 +139,7 @@ app.controller('randomData', function ($scope, $http, $window, $timeout, $interv
     //this is just a workaround for GAS with no callback to AngularJS success() method!
     // $scope.$watch(
     //     function () {
-    //       return $window.data; 
+    //       return $window.data;
     //     }, function(n, o){
     //       $timeout(function(){
     //         $scope.$apply(function(){
@@ -150,13 +150,16 @@ app.controller('randomData', function ($scope, $http, $window, $timeout, $interv
     //     }
     // );
     $scope.START_COUNT = 6;
+    $scope.currentStep = 1;
     $scope.countDown = $scope.START_COUNT;
     $interval(function($window){
       $scope.countDown--;
       //console.log($scope.countDown);
       if($scope.countDown <=0) {
         $scope.countDown = $scope.START_COUNT;
-        $('#jmpress').jmpress('next');
+//        $('#jmpress').jmpress('next');
+        $('#jmpress').jmpress('select', '#step-' + $scope.currentStep, 'move only 1 step at a time not two!');
+          $scope.currentStep++;
       }
     },1000,0);
 
