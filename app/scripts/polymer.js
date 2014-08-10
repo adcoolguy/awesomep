@@ -13,4 +13,4 @@ document.querySelector('core-pages.fancy').onclick = function(e) {
     this.items[0].classList.add('begin');
     }
     });
-    };
+};
