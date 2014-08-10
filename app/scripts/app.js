@@ -15,11 +15,11 @@ app.directive('uiImpress', function () {
             var init = $scope.$watch('newdata', function (data) {
                 if (data) {
                     $scope.$evalAsync(function () {
-                        console.log(' $scope.data[0] check ======> [' 
-                        // + $scope.data[0].author + "\n"
-                        + $scope.newdata[0] + "\n"
-                        + $scope.newdata[1] + "\n"
-                        + "]");
+                        //console.log(' $scope.data[0] check ======> ['
+                        //// + $scope.data[0].author + "\n"
+                        //+ $scope.newdata[0] + "\n"
+                        //+ $scope.newdata[1] + "\n"
+                        //+ "]");
                         $($element).jmpress();
                         //$($element).jmpress({
                         //    stepSelector: "section"
@@ -109,8 +109,8 @@ app.controller('randomData', function ($scope, $http, $window, $timeout, $interv
         var previousObj = {};
         for(var prop in obj) {
             if(obj.hasOwnProperty(prop)) {
-                console.info('key = [' + prop + ']'); // key name
-                console.info('val = [' + obj[prop] + ']'); // value
+                //console.info('key = [' + prop + ']'); // key name
+                //console.info('val = [' + obj[prop] + ']'); // value
                 if (prop.charAt(0) !== 't' && prop.charAt(0) !== 'b') {
                     $scope.newmeta.push({prop: {key: prop, value: obj[prop]}});
                 } else if (prop.charAt(0) === 't') {
