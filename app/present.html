@@ -45,8 +45,10 @@
          data-y="{{ item.coordinates.y + $index*250}}" data-z="{{ item.coordinates.z }}"
          data-rotate-x="{{ item.rotate.x }}" data-rotate-y="{{ item.rotate.y }}" data-rotate-z="{{ item.rotate.z }}"
          data-scale="{{ item.scale }}">
-        <core-pages style="width: 90%;" id="first" class="fancy" selected="0">
-            <div><h1>Slide {{$index+1}}: {{ item.prop.key }} </h1><p> {{ item.prop.value }}</p></div>
+        <core-pages style="max-width:1024px; width:90%; height:320px;" id="first" class="fancy" selected="0">
+            <div><h2>{{$index+1}} of {{newdata.length}}: {{ item.prop.key }} </h2>
+                {{ item.prop.value }}
+            </div>
             <div>Two</div>
             <div>Three</div>
             <div>Four</div>
