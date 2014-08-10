@@ -5,7 +5,7 @@ underscore.factory('_', function() {
     return window._; // assumes underscore has already been loaded on the page
 });
 
-var app = angular.module("app", ['underscore']);
+var app = angular.module("app", ['underscore', 'ngSanitize']);
 
 app.directive('uiImpress', function () {
     return {
@@ -37,7 +37,7 @@ app.directive('uiImpress', function () {
                         //     });
 
 
-                        console.log('jmpress 107g initialized!');
+                        console.log('jmpress 108 initialized!');
                         //init();
                     });
                 };
@@ -53,7 +53,7 @@ app.directive('uiImpress', function () {
 //   data = res.data[0];
 // }
 
-app.controller('randomData', function ($scope, $http, $window, $timeout, $interval, _) {
+app.controller('randomData', function ($scope, $http, $window, $timeout, $interval, _, $sce) {
     var slides = 10;
 
     var config = {
@@ -117,7 +117,10 @@ app.controller('randomData', function ($scope, $http, $window, $timeout, $interv
                     previousObj = {prop: {key: obj[prop], value: undefined}};
                 }
                 else if (prop.charAt(0) === 'b') {
-                    if(previousObj.prop) previousObj.prop.value = obj[prop];
+                    if(previousObj.prop) {
+                      previousObj.prop.value = obj[prop]; //this won't work with ng-bind-html
+                      previousObj.prop.safevalue = $sce.trustAsHtml(obj[prop]);
+                    }
                     if(typeof previousObj.prop !== 'undefined' && previousObj.prop.key.trim() !== '' && previousObj.prop.key.trim().length > 0
                     ) {
                         $scope.newdata.push(previousObj);
