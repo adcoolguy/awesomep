@@ -1,5 +1,6 @@
 'use strict';
 
+/* the core-pages example */
 document.querySelector('#first').onclick = function(e) {
     this.selected = (this.selected + 1) % this.items.length;
     };
@@ -14,3 +15,14 @@ document.querySelector('core-pages.fancy').onclick = function(e) {
     }
     });
 };
+
+/* the platform template example */
+var t = document.querySelector('#greeting');
+  var model = {
+    salutations: { what: 'GoodBye', who: 'Imperative' }
+  };
+  t.model = model;
+    
+  function removeGo() {
+    t.unbind('bind');
+  }
