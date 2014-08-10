@@ -44,12 +44,12 @@
 <div id="jmpress" ng-controller="randomData" ui-impress>
     <div ng-repeat="item in newdata track by $index"
          class="step" data-duration="2000" data-x="{{ item.coordinates.x }}"
-         data-y="{{ item.coordinates.y + $index*350}}" data-z="{{ item.coordinates.z }}"
+         data-y="{{ item.coordinates.y + $index*450 }}" data-z="{{ item.coordinates.z }}"
          data-rotate-x="{{ item.rotate.x }}" data-rotate-y="{{ item.rotate.y }}" data-rotate-z="{{ item.rotate.z }}"
          data-scale="{{ item.scale }}">
-        <div class="dialog" style="width:100%; height:320px; background: red; color: white;">
+        <div class="dialog" style="top:-200px; width:100%; height:480px; background: red; color: white;">
           <div class="content" z="5">
-            <div class="title">{{$index+1}} of {{newdata.length}}: {{ item.prop.key }}</div><br>
+            <div class="title" style="float: right">{{$index+1}} of {{newdata.length}}</div><div class="title" ng-bind-html="item.prop.safekey"></div><br>
             <div>
               <div ng-bind-html="item.prop.safevalue"></div>
             </div>

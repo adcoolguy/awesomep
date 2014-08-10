@@ -120,6 +120,7 @@ app.controller('randomData', function ($scope, $http, $window, $timeout, $interv
                     if(previousObj.prop) {
                       previousObj.prop.value = obj[prop]; //this won't work with ng-bind-html
                       previousObj.prop.safevalue = $sce.trustAsHtml(obj[prop]);
+                      previousObj.prop.safekey = $sce.trustAsHtml(previousObj.prop.key);
                     }
                     if(typeof previousObj.prop !== 'undefined' && previousObj.prop.key.trim() !== '' && previousObj.prop.key.trim().length > 0
                     ) {
