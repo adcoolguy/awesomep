@@ -1,7 +1,7 @@
 <!doctype html>
-<html class="no-js">
+<html class="no-js" ng-app="app">
 <head>
-    <!-- build 100 r1 8/10/2014 -->
+    <!-- build 100 r2 8/10/2014 -->
     <meta charset="utf-8">
     <title></title>
     <meta name="description" content="">
@@ -25,13 +25,13 @@
     <link rel="import" href="../bower_components/core-overlay/core-overlay.html">
     <link rel="import" href="../bower_components/paper-ripple/paper-ripple.html">
 </head>
-<body ng-app="app" unresolved style="background: blue; color: white;">
+<body ng-controller="randomData" unresolved style="background:{{bg1}}; color:{{f1}};">
 <!--[if lt IE 7]>
 <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
     your browser</a> to improve your experience.</p>
 <![endif]-->
 
-<div ng-controller="randomData">
+<div>
     <div style="position:absolute; top: 5px; left: 22px;">
         <h2>{{::topic}}</h2>
         <h2>{{::author}}</h2>
@@ -42,13 +42,13 @@
 </div>
 
 <!-- Add your site or application content here -->
-<div id="jmpress" ng-controller="randomData" ui-impress>
+<div id="jmpress" ui-impress>
     <div ng-repeat="item in newdata track by $index"
          class="step" data-duration="2000" data-x="{{ item.coordinates.x }}"
          data-y="{{ item.coordinates.y + $index*450 }}" data-z="{{ item.coordinates.z }}"
          data-rotate-x="{{ item.rotate.x }}" data-rotate-y="{{ item.rotate.y }}" data-rotate-z="{{ item.rotate.z }}"
          data-scale="{{ item.scale }}">
-        <div class="dialog" style="top:-120px; width:100%; height:380px; background: red; color: white;">
+        <div class="dialog" style="top:-120px; width:100%; height:380px; background:{{bg2}}; color:{{f1}};">
           <div class="content" z="5">
             <div class="title" style="float: right">{{$index+1}} of {{newdata.length}}</div><div class="title" ng-bind-html="item.prop.safekey"></div><br>
             <div>

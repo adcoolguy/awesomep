@@ -102,6 +102,10 @@ app.controller('randomData', function ($scope, $http, $window, $timeout, $interv
         $scope.topic = response.data[0].topic;
         $scope.created = response.data[0].created;
         $scope.updated = response.data[0].updated;
+        $scope.flag = response.data[0].flag;
+        $scope.bg1 = response.data[0].bg1;
+        $scope.bg2 = response.data[0].bg2;
+        $scope.f1 = response.data[0].f1;
         $scope.newmeta = [];
         $scope.newdata = [];
         var obj = response.data[0]; //JSON.parse(response.data[0]) ;
