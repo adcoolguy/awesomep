@@ -20,7 +20,15 @@ app.directive('uiImpress', function () {
                         //+ $scope.newdata[0] + "\n"
                         //+ $scope.newdata[1] + "\n"
                         //+ "]");
-                        $($element).jmpress();
+                        $($element).jmpress(
+//                            {
+//                                viewPort: {
+//                                    height: 800,
+//                                    width: 500,
+//                                    maxScale: 3
+//                                }
+//                            }
+                        );
                         //$($element).jmpress({
                         //    stepSelector: "section"
                         //    ,hash: { use: false }
