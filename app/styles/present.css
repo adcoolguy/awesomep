@@ -2,7 +2,7 @@
 .step {
     opacity: 0.1;
     width: 55em;
-    height: 10em;
+    height: 5em;
 }
 .step.active {
     -webkit-transition: opacity 1s;

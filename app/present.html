@@ -1,6 +1,7 @@
 <!doctype html>
 <html class="no-js">
 <head>
+    <!-- build 100 r1 8/10/2014 -->
     <meta charset="utf-8">
     <title></title>
     <meta name="description" content="">
@@ -31,13 +32,13 @@
 <![endif]-->
 
 <div ng-controller="randomData">
-    <div class="right" style="float: right; padding-right: 20px;"><h1 style="position:relative;float:right;">{{countDown}}</h1></div>
-    <div class="left" style="float: left; padding-left: 20px;">
+    <div style="position:absolute; top: 5px; left: 22px;">
         <h2>{{::topic}}</h2>
         <h2>{{::author}}</h2>
         <h2>{{::created}}</h2>
         <h2>{{::updated}}</h2>
     </div>
+    <div style="position:absolute; top:5px; right:35px;"><h1>{{countDown}}</h1></div>
 </div>
 
 <!-- Add your site or application content here -->
@@ -47,7 +48,7 @@
          data-y="{{ item.coordinates.y + $index*450 }}" data-z="{{ item.coordinates.z }}"
          data-rotate-x="{{ item.rotate.x }}" data-rotate-y="{{ item.rotate.y }}" data-rotate-z="{{ item.rotate.z }}"
          data-scale="{{ item.scale }}">
-        <div class="dialog" style="top:-200px; width:100%; height:480px; background: red; color: white;">
+        <div class="dialog" style="top:-120px; width:100%; height:380px; background: red; color: white;">
           <div class="content" z="5">
             <div class="title" style="float: right">{{$index+1}} of {{newdata.length}}</div><div class="title" ng-bind-html="item.prop.safekey"></div><br>
             <div>
