@@ -45,12 +45,12 @@
 <div id="jmpress" ui-impress>
     <div ng-repeat="item in newdata track by $index"
          class="step" data-duration="2000" data-x="{{ item.coordinates.x }}"
-         data-y="{{ item.coordinates.y + $index*450 }}" data-z="{{ item.coordinates.z }}"
+         data-y="{{ item.coordinates.y + $index*410 }}" data-z="{{ item.coordinates.z }}"
          data-rotate-x="{{ item.rotate.x }}" data-rotate-y="{{ item.rotate.y }}" data-rotate-z="{{ item.rotate.z }}"
          data-scale="{{ item.scale }}">
         <div class="dialog" style="top:-120px; width:100%; height:380px; background:{{bg2}}; color:{{f1}};">
           <div class="content" z="5">
-            <div class="title" style="float: right">{{$index+1}} of {{newdata.length}}</div><div class="title" ng-bind-html="item.prop.safekey"></div><br>
+            <div class="title" style="float: right;font-size:1.3em;">{{$index+1}} of {{newdata.length}}</div><div class="title" ng-bind-html="item.prop.safekey"></div><br>
             <div>
               <div ng-bind-html="item.prop.safevalue"></div>
             </div>
