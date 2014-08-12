@@ -156,7 +156,7 @@ app.controller('randomData', function ($scope, $http, $window, $timeout, $interv
                       previousObj.prop.value = obj[prop]; //this won't work with ng-bind-html
                       previousObj.prop.safevalue = $sce.trustAsHtml(obj[prop]);
                       previousObj.prop.safekey = $sce.trustAsHtml(previousObj.prop.key);
-                      $scope.weight.push(Math.round($scope.getWordCount(obj[prop])/4));   //*** TIMING LOGIC: just the simple words count logic for now
+                      $scope.weight.push(Math.round($scope.getWordCount(obj[prop])/3));   //*** TIMING LOGIC: just the simple words count logic for now
                     }
                     if(typeof previousObj.prop !== 'undefined' && previousObj.prop.key.trim() !== '' && previousObj.prop.key.trim().length > 0
                     ) {
