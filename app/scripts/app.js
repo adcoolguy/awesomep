@@ -138,6 +138,7 @@ app.controller('randomData', function ($scope, $http, $window, $timeout, $interv
         $scope.f1 = response.data[0].f1;
         $scope.newmeta = [];
         $scope.newdata = [];
+        $scope.weight = [];
         var obj = response.data[0]; //JSON.parse(response.data[0]) ;
         var count = 0;
         var previousObj = {};
@@ -155,7 +156,7 @@ app.controller('randomData', function ($scope, $http, $window, $timeout, $interv
                       previousObj.prop.value = obj[prop]; //this won't work with ng-bind-html
                       previousObj.prop.safevalue = $sce.trustAsHtml(obj[prop]);
                       previousObj.prop.safekey = $sce.trustAsHtml(previousObj.prop.key);
-                      previousObj.prop.weight = $scope.getWordCount(obj[prop]);   //just the words count for now
+                      $scope.weight.push(Math.round($scope.getWordCount(obj[prop])/4));   //just the simple words count logic for now
                     }
                     if(typeof previousObj.prop !== 'undefined' && previousObj.prop.key.trim() !== '' && previousObj.prop.key.trim().length > 0
                     ) {
@@ -170,6 +171,23 @@ app.controller('randomData', function ($scope, $http, $window, $timeout, $interv
         //     return item.joke;
         // })
         // //$scope.data = generateData(messages);
+        
+        console.log($scope.weight);
+        $scope.START_COUNT = $scope.weight[0];
+        $scope.currentStep = 1;
+        $scope.countDown = $scope.START_COUNT;
+        $interval(function($window){
+          $scope.countDown--;
+          //console.log($scope.countDown);
+          if($scope.countDown <=0) {
+            $scope.countDown = $scope.weight[$scope.currentStep];
+            console.log($scope.currentTimer);
+    //        $('#jmpress').jmpress('next');
+            $('#jmpress').jmpress('select', '#step-' + $scope.currentStep, 'move only 1 step at a time not two!');
+            $scope.currentStep++;
+          }
+        },1000,0);
+    
       })
       .error(function (data) {
         $scope.newdata = "Request failed";
@@ -188,22 +206,6 @@ app.controller('randomData', function ($scope, $http, $window, $timeout, $interv
     //       });
     //     }
     // );
-    $scope.START_COUNT = 6;
-    //initial/default weight
-    $scope.currentTimer = $scope.START_COUNT;
-    $scope.currentStep = 1;
-    $scope.countDown = $scope.currentTimer;
-    $interval(function($window){
-      $scope.countDown--;
-      //console.log($scope.countDown);
-      if($scope.countDown <=0) {
-        $scope.countDown = $scope.START_COUNT + $scope.currentTimer;
-        console.log($scope.currentTimer);
-//        $('#jmpress').jmpress('next');
-        $('#jmpress').jmpress('select', '#step-' + $scope.currentStep, 'move only 1 step at a time not two!');
-        $scope.currentStep++;
-      }
-    },1000,0);
 
 });
 
