@@ -114,7 +114,7 @@ app.controller('randomData', function ($scope, $http, $window, $timeout, $interv
       $.each( res, function( index, word ){
         totalWords += word.length;
       });
-      console.log('wcount ' + totalWords);
+      //console.log('wcount ' + totalWords);
       
       return totalWords;
     };
@@ -156,7 +156,7 @@ app.controller('randomData', function ($scope, $http, $window, $timeout, $interv
                       previousObj.prop.value = obj[prop]; //this won't work with ng-bind-html
                       previousObj.prop.safevalue = $sce.trustAsHtml(obj[prop]);
                       previousObj.prop.safekey = $sce.trustAsHtml(previousObj.prop.key);
-                      $scope.weight.push(Math.round($scope.getWordCount(obj[prop])/4));   //just the simple words count logic for now
+                      $scope.weight.push(Math.round($scope.getWordCount(obj[prop])/4));   //*** TIMING LOGIC: just the simple words count logic for now
                     }
                     if(typeof previousObj.prop !== 'undefined' && previousObj.prop.key.trim() !== '' && previousObj.prop.key.trim().length > 0
                     ) {
@@ -173,16 +173,21 @@ app.controller('randomData', function ($scope, $http, $window, $timeout, $interv
         // //$scope.data = generateData(messages);
         
         console.log($scope.weight);
+        var stopTime;
         $scope.START_COUNT = $scope.weight[0];
         $scope.currentStep = 1;
         $scope.countDown = $scope.START_COUNT;
-        $interval(function($window){
+        stopTime = $interval(function($window){
           $scope.countDown--;
           //console.log($scope.countDown);
           if($scope.countDown <=0) {
-            $scope.countDown = $scope.weight[$scope.currentStep];
-            console.log($scope.currentTimer);
-    //        $('#jmpress').jmpress('next');
+            if(!isNaN($scope.weight[$scope.currentStep])) {
+              $scope.countDown = $scope.weight[$scope.currentStep];
+            } else {
+              $scope.countDown = 0;
+              $interval.cancel(stopTime);
+            }
+//        $('#jmpress').jmpress('next');
             $('#jmpress').jmpress('select', '#step-' + $scope.currentStep, 'move only 1 step at a time not two!');
             $scope.currentStep++;
           }
