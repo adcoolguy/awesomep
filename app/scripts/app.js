@@ -97,6 +97,28 @@ app.controller('randomData', function ($scope, $http, $window, $timeout, $interv
     //     });
     // }
 
+    //poor man's word count logic (thanks to http://jsfiddle.net/shaydoc/rxcHA/)
+    $scope.getWordCount = 
+    function(tex) {
+      //console.log(tex);
+      var removePunctuation = tex.replace(/[!,?.":;]/g,' ');
+      var split = removePunctuation.split(" ");
+      var res =
+          _.chain(split)
+        .without('',' ','a','an','and','any','are','that','The','the','this','of','for','to','with','is','in','on','our','Our')
+        .groupBy( function(word){return word;} )
+        .sortBy(  function(word){ return word.length; } )
+        .value();
+      var totalWords = 0;
+      
+      $.each( res, function( index, word ){
+        totalWords += word.length;
+      });
+      console.log('wcount ' + totalWords);
+      
+      return totalWords;
+    };
+    
     $http.jsonp(randomDataSource)
       .success(function (response) {
         //var myObj = angular.fromJson(response.data);
@@ -133,6 +155,7 @@ app.controller('randomData', function ($scope, $http, $window, $timeout, $interv
                       previousObj.prop.value = obj[prop]; //this won't work with ng-bind-html
                       previousObj.prop.safevalue = $sce.trustAsHtml(obj[prop]);
                       previousObj.prop.safekey = $sce.trustAsHtml(previousObj.prop.key);
+                      previousObj.prop.weight = $scope.getWordCount(obj[prop]);   //just the words count for now
                     }
                     if(typeof previousObj.prop !== 'undefined' && previousObj.prop.key.trim() !== '' && previousObj.prop.key.trim().length > 0
                     ) {
@@ -142,7 +165,7 @@ app.controller('randomData', function ($scope, $http, $window, $timeout, $interv
             }
         }
         _.compact($scope.newdata);
-
+        
         // var messages = response.data.value.map(function (item) {
         //     return item.joke;
         // })
@@ -166,16 +189,19 @@ app.controller('randomData', function ($scope, $http, $window, $timeout, $interv
     //     }
     // );
     $scope.START_COUNT = 6;
+    //initial/default weight
+    $scope.currentTimer = $scope.START_COUNT;
     $scope.currentStep = 1;
-    $scope.countDown = $scope.START_COUNT;
+    $scope.countDown = $scope.currentTimer;
     $interval(function($window){
       $scope.countDown--;
       //console.log($scope.countDown);
       if($scope.countDown <=0) {
-        $scope.countDown = $scope.START_COUNT;
+        $scope.countDown = $scope.START_COUNT + $scope.currentTimer;
+        console.log($scope.currentTimer);
 //        $('#jmpress').jmpress('next');
         $('#jmpress').jmpress('select', '#step-' + $scope.currentStep, 'move only 1 step at a time not two!');
-          $scope.currentStep++;
+        $scope.currentStep++;
       }
     },1000,0);
 

@@ -54,6 +54,7 @@
           <div class="content" z="5">
             <div class="title" style="float: right;font-size:1.3em;">{{$index+1}} of {{newdata.length}}</div><div class="title" ng-bind-html="item.prop.safekey"></div><br>
             <div>
+              <!--{{item.prop.weight}}--> <div ng-init="$scope.currentTimer = Math.round(item.prop.weight/2)"></div>
               <div ng-bind-html="item.prop.safevalue"></div>
             </div>
             <paper-ripple fit></paper-ripple>
