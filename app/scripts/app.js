@@ -5,7 +5,16 @@ underscore.factory('_', function() {
     return window._; // assumes underscore has already been loaded on the page
 });
 
-var app = angular.module("app", ['underscore', 'ngSanitize']);
+//courtesy of http://stackoverflow.com/questions/17289448/angularjs-to-output-plain-text-instead-of-html
+angular.module('app.filters', []).
+  filter('htmlToPlainText', function() {
+    return function(text) {
+      return String(text).replace(/<[^>]+>/gm, '');
+    }
+  }
+);
+
+var app = angular.module("app", ['underscore', 'ngSanitize', 'app.filters']);
 
 app.directive('uiImpress', function () {
     return {
@@ -139,21 +148,21 @@ app.controller('randomData', function ($scope, $http, $window, $timeout, $interv
           str+= hours + ':';
           current++;
       } else {
-          str+='0:';
+          str+='00:';
       }
       var minutes = Math.floor((seconds %= 3600) / 60);
       if (minutes && current<max) {
           str+= minutes + ':';
           current++;
       } else {
-          str+='0:';
+          str+='00:';
       }
       var seconds = seconds % 60;
       if (seconds && current<max) {
           str+= seconds + '';
           current++;
       } else {
-          str+='0';
+          str+='00';
       }
       
       return str;

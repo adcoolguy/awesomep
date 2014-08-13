@@ -64,7 +64,7 @@
 </style>
   <paper-dialog ng-init="showindex=false" heading="Timed Index" opened={{showindex}}>
     <p class="selectable" ng-repeat="b in timings track by $index">
-      {{b}}
+      {{b | htmlToPlainText}}
     </p>
   </paper-dialog>
   <div style="position:absolute; top: 5px; left: 22px;">
