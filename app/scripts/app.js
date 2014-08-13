@@ -16,6 +16,12 @@ angular.module('app.filters', []).
 
 var app = angular.module("app", ['underscore', 'ngSanitize', 'app.filters']);
 
+app.filter('numberFixedLen', function () {
+    return function(a,b){
+        return(1e4+a+"").slice(-b)
+    }
+});
+
 app.directive('uiImpress', function () {
     return {
         restrict: 'A',
@@ -70,7 +76,7 @@ app.directive('uiImpress', function () {
 //   data = res.data[0];
 // }
 
-app.controller('randomData', function ($scope, $http, $window, $timeout, $interval, _, $sce) {
+app.controller('randomData', function ($scope, $http, $window, $timeout, $interval, _, $sce, htmlToPlainTextFilter) {
     var slides = 10;
 
     var config = {
@@ -146,6 +152,7 @@ app.controller('randomData', function ($scope, $http, $window, $timeout, $interv
       var hours = Math.floor((seconds %= 86400) / 3600);
       if (hours && current<max) {
           str+= hours + ':';
+          str = htmlToPlainTextFilter(str, 2);
           current++;
       } else {
           str+='00:';
@@ -153,6 +160,7 @@ app.controller('randomData', function ($scope, $http, $window, $timeout, $interv
       var minutes = Math.floor((seconds %= 3600) / 60);
       if (minutes && current<max) {
           str+= minutes + ':';
+          str = htmlToPlainTextFilter(str, 2);
           current++;
       } else {
           str+='00:';
@@ -160,6 +168,7 @@ app.controller('randomData', function ($scope, $http, $window, $timeout, $interv
       var seconds = seconds % 60;
       if (seconds && current<max) {
           str+= seconds + '';
+          str = htmlToPlainTextFilter(str, 2);
           current++;
       } else {
           str+='00';
