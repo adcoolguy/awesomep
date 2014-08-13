@@ -53,8 +53,17 @@
   <!--    {{b}}-->
   <!--  </p>-->
   <!--</alert >-->
+<style>
+    .notselectable {
+        -webkit-user-select: none;
+    }
+
+    .selectable {
+        -webkit-user-select: initial;
+    }
+</style>
   <paper-dialog ng-init="showindex=false" heading="Timed Index" opened={{showindex}}>
-    <p ng-repeat="b in timings track by $index">
+    <p class="selectable" ng-repeat="b in timings track by $index">
       {{b}}
     </p>
   </paper-dialog>
