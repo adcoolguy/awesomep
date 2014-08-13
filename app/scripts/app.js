@@ -17,8 +17,10 @@ angular.module('app.filters', []).
 var app = angular.module("app", ['underscore', 'ngSanitize', 'app.filters']);
 
 app.filter('numberFixedLen', function () {
-    return function(a,b){
-        return(1e4+a+"").slice(-b)
+    return function pad(num, size) {
+        var s = num+"";
+        while (s.length < size) s = "0" + s;
+        return s;
     }
 });
 
@@ -76,7 +78,7 @@ app.directive('uiImpress', function () {
 //   data = res.data[0];
 // }
 
-app.controller('randomData', function ($scope, $http, $window, $timeout, $interval, _, $sce, htmlToPlainTextFilter) {
+app.controller('randomData', function ($scope, $http, $window, $timeout, $interval, _, $sce, numberFixedLenFilter) {
     var slides = 10;
 
     var config = {
@@ -137,7 +139,7 @@ app.controller('randomData', function ($scope, $http, $window, $timeout, $interv
     $scope.createTimedIndex = 
     function(seconds) {
       var years = Math.floor(seconds / 31536000);
-      var max =2;
+      var max = 2;
       var current = 0;
       var str = "";
       if (years && current<max) {
@@ -151,21 +153,21 @@ app.controller('randomData', function ($scope, $http, $window, $timeout, $interv
       }
       var hours = Math.floor((seconds %= 86400) / 3600);
       if (hours && current<max) {
-          str+= htmlToPlainTextFilter(hours, 2) + ':';
+          str+= numberFixedLenFilter(hours, 2) + ':';
           current++;
       } else {
           str+='00:';
       }
       var minutes = Math.floor((seconds %= 3600) / 60);
       if (minutes && current<max) {
-          str+= htmlToPlainTextFilter(minutes, 2) + ':';
+          str+= numberFixedLenFilter(minutes, 2) + ':';
           current++;
       } else {
           str+='00:';
       }
       var seconds = seconds % 60;
       if (seconds && current<max) {
-          str+= htmlToPlainTextFilter(seconds) + '';
+          str+= numberFixedLenFilter(seconds, 2) + '';
           current++;
       } else {
           str+='00';
