@@ -45,7 +45,7 @@ app.directive('uiImpress', function () {
                         //     });
 
 
-                        console.log('jmpress 108a initialized!');
+                        console.log('jmpress 108b initialized!');
                         //init();
                     });
                 };
