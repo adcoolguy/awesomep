@@ -229,13 +229,17 @@ app.controller('randomData', function ($scope, $http, $window, $timeout, $interv
           //console.log($scope.countDown);
           if($scope.countDown <=0) {
             if(!isNaN($scope.weight[$scope.currentStep])) {
-              $scope.countDown = $scope.weight[$scope.currentStep];
+                if($scope.weight[$scope.currentStep] > 0) {
+                    $scope.countDown = $scope.weight[$scope.currentStep];
+                } else {
+                    $scope.countDown = 3;   //at least 3 seconds
+                }
             } else {
               $scope.countDown = 0;
               $interval.cancel(stopTime);
             }
 //        $('#jmpress').jmpress('next');
-            $('#jmpress').jmpress('select', '#step-' + $scope.currentStep, 'move only 1 step at a time not two!');
+            $('#jmpress').jmpress('select', '#step-' + ($scope.currentStep+1), 'move only 1 step at a time not two!');
             $scope.currentStep++;
           }
         },1000,0);
