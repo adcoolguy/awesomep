@@ -34,18 +34,23 @@
 <![endif]-->
 
 <!-- embedded timings -->
+
+
 <script>
-  var now = moment();
-  now.set('hour', 0);
-  now.set('minute', 0);
-  now.set('second', 0);
-  now.add(10, 'seconds');
-  console.log(now.format("hh:mm:ss"));
-  now.add(20, 'seconds');
-  console.log(now.format("hh:mm:ss"));
+  <!--var now = moment();-->
+  <!--now.set('hour', 0);-->
+  <!--now.set('minute', 0);-->
+  <!--now.set('second', 0);-->
+  <!--now.add(10, 'seconds');-->
+  <!--console.log(now.format("hh:mm:ss") + ' elapsed since ' + secondsToString(10));-->
+  <!--now.add(20, 'seconds');-->
+  <!--console.log(now.format("hh:mm:ss") + ' elapsed since ' + secondsToString(20));-->
 </script>
 <div>
     <div style="position:absolute; top: 5px; left: 22px;">
+<p ng-repeat="b in currTotalWeight">
+  TEST {{b[$index]}}
+</p>    
         <h2>{{::topic}}</h2>
         <h3>{{::author}}</h3>
         <h5 ng-show="created">Created: {{::created}}</h5>

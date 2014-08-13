@@ -45,7 +45,7 @@ app.directive('uiImpress', function () {
                         //     });
 
 
-                        console.log('jmpress 108 initialized!');
+                        console.log('jmpress 108a initialized!');
                         //init();
                     });
                 };
@@ -119,6 +119,46 @@ app.controller('randomData', function ($scope, $http, $window, $timeout, $interv
       return totalWords;
     };
     
+    $scope.createTimedIndex = 
+    function(seconds) {
+      var years = Math.floor(seconds / 31536000);
+      var max =2;
+      var current = 0;
+      var str = "";
+      if (years && current<max) {
+          str+= years + 'y ';
+          current++;
+      }
+      var days = Math.floor((seconds %= 31536000) / 86400);
+      if (days && current<max) {
+          str+= days + 'd ';
+          current++;
+      }
+      var hours = Math.floor((seconds %= 86400) / 3600);
+      if (hours && current<max) {
+          str+= hours + ':';
+          current++;
+      } else {
+          str+='0:';
+      }
+      var minutes = Math.floor((seconds %= 3600) / 60);
+      if (minutes && current<max) {
+          str+= minutes + ':';
+          current++;
+      } else {
+          str+='0:';
+      }
+      var seconds = seconds % 60;
+      if (seconds && current<max) {
+          str+= seconds + '';
+          current++;
+      } else {
+          str+='0';
+      }
+      
+      return str;
+    }
+
     $http.jsonp(randomDataSource)
       .success(function (response) {
         //var myObj = angular.fromJson(response.data);
@@ -139,9 +179,12 @@ app.controller('randomData', function ($scope, $http, $window, $timeout, $interv
         $scope.newmeta = [];
         $scope.newdata = [];
         $scope.weight = [];
+        $scope.timings = [];
         var obj = response.data[0]; //JSON.parse(response.data[0]) ;
         var count = 0;
         var previousObj = {};
+        var curr;
+        var currTotalWeight = 0;
         for(var prop in obj) {
             if(obj.hasOwnProperty(prop)) {
                 //console.info('key = [' + prop + ']'); // key name
@@ -156,15 +199,19 @@ app.controller('randomData', function ($scope, $http, $window, $timeout, $interv
                       previousObj.prop.value = obj[prop]; //this won't work with ng-bind-html
                       previousObj.prop.safevalue = $sce.trustAsHtml(obj[prop]);
                       previousObj.prop.safekey = $sce.trustAsHtml(previousObj.prop.key);
-                      $scope.weight.push(Math.round($scope.getWordCount(obj[prop])/3));   //*** TIMING LOGIC: just the simple words count logic for now
+                      curr = Math.round($scope.getWordCount(obj[prop])/3);
+                      currTotalWeight += curr;
+                      $scope.weight.push(curr);   //*** TIMING LOGIC: just the simple words count logic for now
+                      $scope.timings.push($scope.createTimedIndex(currTotalWeight));
                     }
                     if(typeof previousObj.prop !== 'undefined' && previousObj.prop.key.trim() !== '' && previousObj.prop.key.trim().length > 0
                     ) {
-                        $scope.newdata.push(previousObj);
+                      $scope.newdata.push(previousObj);
                     }
                 }
             }
         }
+        console.log($scope.timings);
         _.compact($scope.newdata);
         
         // var messages = response.data.value.map(function (item) {
