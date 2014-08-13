@@ -151,24 +151,21 @@ app.controller('randomData', function ($scope, $http, $window, $timeout, $interv
       }
       var hours = Math.floor((seconds %= 86400) / 3600);
       if (hours && current<max) {
-          str+= hours + ':';
-          str = htmlToPlainTextFilter(str, 2);
+          str+= htmlToPlainTextFilter(hours, 2) + ':';
           current++;
       } else {
           str+='00:';
       }
       var minutes = Math.floor((seconds %= 3600) / 60);
       if (minutes && current<max) {
-          str+= minutes + ':';
-          str = htmlToPlainTextFilter(str, 2);
+          str+= htmlToPlainTextFilter(minutes, 2) + ':';
           current++;
       } else {
           str+='00:';
       }
       var seconds = seconds % 60;
       if (seconds && current<max) {
-          str+= seconds + '';
-          str = htmlToPlainTextFilter(str, 2);
+          str+= htmlToPlainTextFilter(seconds) + '';
           current++;
       } else {
           str+='00';
