@@ -48,18 +48,23 @@
   <!--console.log(now.format("hh:mm:ss") + ' elapsed since ' + secondsToString(20));-->
 </script>
 <div>
-  <paper-dialog heading="Timed Index" opened={{showindex}}>
+  <!--<alert type="info">-->
+  <!--  <p ng-repeat="b in timings track by $index">-->
+  <!--    {{b}}-->
+  <!--  </p>-->
+  <!--</alert >-->
+  <paper-dialog ng-init="showindex=false" heading="Timed Index" opened={{showindex}}>
     <p ng-repeat="b in timings track by $index">
       {{b}}
     </p>
   </paper-dialog>
   <div style="position:absolute; top: 5px; left: 22px;">
-      <h2 ng-mouseover="showindex=true" ng-mouseout="showindex=false">{{::topic}}</h2>
+      <h2 ng-mouseover="showindex=true">{{::topic}}</h2>
       <h3>{{::author}}</h3>
       <h5 ng-show="created">Created: {{::created}}</h5>
       <h5 ng-show="updated">Updated: {{::updated}}</h5>
   </div>
-  <div style="position:absolute; top:5px; right:35px;"><h1>{{countDown}}</h1></div>
+  <div style="position:absolute; top:5px; right:35px;"><h1 ng-mouseover="showindex=false">{{countDown}}</h1></div>
 </div>
 
 <!-- Add your site or application content here -->
