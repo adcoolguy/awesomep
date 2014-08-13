@@ -213,17 +213,17 @@ app.controller('randomData', function ($scope, $http, $window, $timeout, $interv
                 }
                 else if (prop.charAt(0) === 'b') {
                     if(previousObj.prop) {
-                      previousObj.prop.value = obj[prop]; //this won't work with ng-bind-html
-                      previousObj.prop.safevalue = $sce.trustAsHtml(obj[prop]);
-                      previousObj.prop.safekey = $sce.trustAsHtml(previousObj.prop.key);
-                      curr = Math.round($scope.getWordCount(obj[prop])/3);
-                      currTotalWeight += curr;
-                      $scope.weight.push(curr);   //*** TIMING LOGIC: just the simple words count logic for now
-                      $scope.timings.push($scope.createTimedIndex(currTotalWeight) + ' ' + previousObj.prop.safekey);
+                        previousObj.prop.value = obj[prop]; //this won't work with ng-bind-html
+                        previousObj.prop.safevalue = $sce.trustAsHtml(obj[prop]);
+                        previousObj.prop.safekey = $sce.trustAsHtml(previousObj.prop.key);
+                        curr = Math.round($scope.getWordCount(obj[prop])/3);
+                        $scope.weight.push(curr);   //*** TIMING LOGIC: just the simple words count logic for now
+                        $scope.timings.push($scope.createTimedIndex(currTotalWeight) + ' ' + previousObj.prop.safekey);
+                        currTotalWeight += curr;
                     }
                     if(typeof previousObj.prop !== 'undefined' && previousObj.prop.key.trim() !== '' && previousObj.prop.key.trim().length > 0
                     ) {
-                      $scope.newdata.push(previousObj);
+                        $scope.newdata.push(previousObj);
                     }
                 }
             }
