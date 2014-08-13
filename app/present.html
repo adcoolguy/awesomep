@@ -24,6 +24,7 @@
     <link rel="import" href="../bower_components/core-pages/core-pages.html">
     <link rel="import" href="../bower_components/core-overlay/core-overlay.html">
     <link rel="import" href="../bower_components/paper-ripple/paper-ripple.html">
+    <link rel="import" href="../bower_components/paper-dialog/paper-dialog.html">
     <!-- timing dependencies -->
     <script src="../bower_components/moment/moment.js"></script>
 </head>
@@ -47,16 +48,18 @@
   <!--console.log(now.format("hh:mm:ss") + ' elapsed since ' + secondsToString(20));-->
 </script>
 <div>
-    <div style="position:absolute; top: 5px; left: 22px;">
-<p ng-repeat="b in currTotalWeight">
-  TEST {{b[$index]}}
-</p>    
-        <h2>{{::topic}}</h2>
-        <h3>{{::author}}</h3>
-        <h5 ng-show="created">Created: {{::created}}</h5>
-        <h5 ng-show="updated">Updated: {{::updated}}</h5>
-    </div>
-    <div style="position:absolute; top:5px; right:35px;"><h1>{{countDown}}</h1></div>
+  <paper-dialog heading="Timed Index" opened={{showindex}}>
+    <p ng-repeat="b in timings track by $index">
+      {{b}}
+    </p>
+  </paper-dialog>
+  <div style="position:absolute; top: 5px; left: 22px;">
+      <h2 ng-mouseover="showindex=true" ng-mouseout="showindex=false">{{::topic}}</h2>
+      <h3>{{::author}}</h3>
+      <h5 ng-show="created">Created: {{::created}}</h5>
+      <h5 ng-show="updated">Updated: {{::updated}}</h5>
+  </div>
+  <div style="position:absolute; top:5px; right:35px;"><h1>{{countDown}}</h1></div>
 </div>
 
 <!-- Add your site or application content here -->

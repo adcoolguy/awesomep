@@ -202,7 +202,7 @@ app.controller('randomData', function ($scope, $http, $window, $timeout, $interv
                       curr = Math.round($scope.getWordCount(obj[prop])/3);
                       currTotalWeight += curr;
                       $scope.weight.push(curr);   //*** TIMING LOGIC: just the simple words count logic for now
-                      $scope.timings.push($scope.createTimedIndex(currTotalWeight));
+                      $scope.timings.push($scope.createTimedIndex(currTotalWeight) + ' ' + previousObj.prop.safekey);
                     }
                     if(typeof previousObj.prop !== 'undefined' && previousObj.prop.key.trim() !== '' && previousObj.prop.key.trim().length > 0
                     ) {
