@@ -239,7 +239,7 @@ app.controller('randomData', function ($scope, $http, $window, $timeout, $interv
         console.log($scope.weight);
 
         var stopTime;
-        $scope.countDownNotice = "Please get ready in ";
+        $scope.countDownNotice = "Please hit record when the count reach a ONE: ";
         $scope.countDown = 10;
         //getting ready mode - you have 6 seconds!
         stopTime = $interval(function($window){
