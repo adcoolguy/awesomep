@@ -236,32 +236,43 @@ app.controller('randomData', function ($scope, $http, $window, $timeout, $interv
         //     return item.joke;
         // })
         // //$scope.data = generateData(messages);
-        
         console.log($scope.weight);
+
         var stopTime;
-        $scope.START_COUNT = $scope.weight[0];
-        $scope.currentStep = 1;
-        $scope.countDown = $scope.START_COUNT;
+        $scope.countDownNotice = "Please get ready in ";
+        $scope.countDown = 10;
+        //getting ready mode - you have 6 seconds!
         stopTime = $interval(function($window){
-          $scope.countDown--;
-          //console.log($scope.countDown);
-          if($scope.countDown <=0) {
-            if(!isNaN($scope.weight[$scope.currentStep])) {
-                if($scope.weight[$scope.currentStep] > 0) {
-                    $scope.countDown = $scope.weight[$scope.currentStep];
-                } else {
-                    $scope.countDown = 3;   //at least 3 seconds
-                }
-            } else {
-              $scope.countDown = 0;
-              $interval.cancel(stopTime);
+            $scope.countDown--;
+            if($scope.countDown <=0) {
+                $interval.cancel(stopTime);
+                $scope.countDownNotice = "";
+                $scope.START_COUNT = $scope.weight[0];
+                $scope.currentStep = 1;
+                $scope.countDown = $scope.START_COUNT;
+                stopTime = $interval(function($window){
+                    $scope.countDown--;
+                    //console.log($scope.countDown);
+                    if($scope.countDown <=0) {
+                        if(!isNaN($scope.weight[$scope.currentStep])) {
+                            if($scope.weight[$scope.currentStep] > 0) {
+                                $scope.countDown = $scope.weight[$scope.currentStep];
+                            } else {
+                                $scope.countDown = 3;   //at least 3 seconds
+                            }
+                        } else {
+                            $scope.countDown = 0;
+                            $interval.cancel(stopTime);
+                        }
+//                        $('#jmpress').jmpress('next');
+                        $('#jmpress').jmpress('select', '#step-' + ($scope.currentStep+1), 'move only 1 step at a time not two!');
+                        $scope.currentStep++;
+                    }
+                },1000,0);
             }
-//        $('#jmpress').jmpress('next');
-            $('#jmpress').jmpress('select', '#step-' + ($scope.currentStep+1), 'move only 1 step at a time not two!');
-            $scope.currentStep++;
-          }
         },1000,0);
-    
+
+
       })
       .error(function (data) {
         $scope.newdata = "Request failed";
