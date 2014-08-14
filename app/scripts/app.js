@@ -192,7 +192,8 @@ app.controller('randomData', function ($scope, $http, $window, $timeout, $interv
         $scope.flag = response.data[0].flag;
         $scope.bg1 = response.data[0].bg1;
         $scope.bg2 = response.data[0].bg2;
-        $scope.f1 = response.data[0].f1;
+        $scope.f1 = response.data[0].f1;    //the font color of the step
+        $scope.f2 = response.data[0].f2;    //the font color of the background text (e.g. title, author etc)
         $scope.newmeta = [];
         $scope.newdata = [];
         $scope.weight = [];
