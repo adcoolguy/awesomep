@@ -1,8 +1,13 @@
-/** ANIMATION **/
+body {
+  /*font-size: 110%;*/
+}
 .step {
     opacity: 0.1;
-    width: 55em;
+    width: 58em;
     height: 5em;
+    /*overflow: auto;*/
+    border: 20px solid yellow;
+    /*background: yellow;*/
 }
 .step.active {
     -webkit-transition: opacity 1s;
