@@ -258,7 +258,7 @@ app.controller('randomData', function ($scope, $http, $window, $timeout, $interv
                     //console.log($scope.countDown);
                     if($scope.countDown <=0) {
                         if(!isNaN($scope.weight[$scope.currentStep])) {
-                            if($scope.weight[$scope.currentStep] > 0) {
+                            if($scope.weight[$scope.currentStep] > 3) {
                                 $scope.countDown = $scope.weight[$scope.currentStep];
                             } else {
                                 $scope.countDown = 3;   //at least 3 seconds

@@ -1,12 +1,12 @@
 body {
-  /*font-size: 110%;*/
+  font-size: 120%;
 }
 .step {
     opacity: 0.1;
-    width: 58em;
+    width: 50em;
     height: 5em;
     /*overflow: auto;*/
-    border: 20px solid yellow;
+    /*border: 20px solid yellow;*/
     /*background: yellow;*/
 }
 .step.active {
