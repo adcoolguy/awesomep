@@ -1,0 +1,11 @@
+applications:
+- services:
+  - 2share:DataCache
+  disk_quota: 1024M
+  host: 2share
+  name: 2share
+  command: node app.js
+  path: .
+  domain: mybluemix.net
+  instances: 1
+  memory: 512M

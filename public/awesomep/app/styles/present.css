@@ -1,0 +1,19 @@
+body {
+  font-size: 120%;
+}
+.step {
+    opacity: 0.1;
+    width: 50em;
+    height: 5em;
+    /*overflow: auto;*/
+    /*border: 20px solid yellow;*/
+    /*background: yellow;*/
+}
+.step.active {
+    -webkit-transition: opacity 1s;
+    -moz-transition: opacity 1s;
+    -ms-transition: opacity 1s;
+    -o-transition: opacity 1s;
+    transition: opacity 1s;
+    opacity: 1;
+}
