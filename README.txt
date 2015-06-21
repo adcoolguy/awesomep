@@ -30,4 +30,4 @@ Node JS Web Starter application using IBM DataCache Service contains the followi
 
 	This file is required by the Node.js environment. It specifies this Node.js project name, dependencies, and other configurations of your Node.js application.
 	
-	Notes: This app does not seem to work with the latest Polymer! :(
+Last updated: 6/21/2015 4.11 PM ET
