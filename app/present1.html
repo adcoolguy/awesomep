@@ -1,0 +1,159 @@
+<!doctype html>
+<html class="no-js" ng-app="app">
+<head>
+    <!-- build 100 r3 8/12/2014 -->
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <!-- build:css(.) styles/vendor.css -->
+    <!-- bower:css -->
+    <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:css(.tmp) styles/main.css -->
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/present.css">
+    <link rel="stylesheet" href="styles/polymer.css">
+    <!-- endbuild -->
+    <!-- 1. Load platform.js for polyfill support. -->
+    <script src="../bower_components/webcomponentsjs/webcomponents.js"></script>
+
+    <!-- 2. Use an HTML Import to bring in the element. -->
+    <link rel="import" href="../bower_components/iron-elements/iron-elements.html">
+    <link rel="import" href="../bower_components/core-pages/core-pages.html">
+    <link rel="import" href="../bower_components/core-overlay/core-overlay.html">
+    <link rel="import" href="../bower_components/paper-ripple/paper-ripple.html">
+    <link rel="import" href="../bower_components/paper-dialog/paper-dialog.html">
+    <!-- timing dependencies -->
+    <script src="../bower_components/moment/moment.js"></script>
+</head>
+<body ng-controller="randomData" unresolved style="background:{{bg1}}; color:{{f2}};">
+<!--[if lt IE 7]>
+<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
+    your browser</a> to improve your experience.</p>
+<![endif]-->
+
+<!-- embedded timings -->
+
+
+<script>
+  <!--var now = moment();-->
+  <!--now.set('hour', 0);-->
+  <!--now.set('minute', 0);-->
+  <!--now.set('second', 0);-->
+  <!--now.add(10, 'seconds');-->
+  <!--console.log(now.format("hh:mm:ss") + ' elapsed since ' + secondsToString(10));-->
+  <!--now.add(20, 'seconds');-->
+  <!--console.log(now.format("hh:mm:ss") + ' elapsed since ' + secondsToString(20));-->
+</script>
+<div>
+  <!--<alert type="info">-->
+  <!--  <p ng-repeat="b in timings track by $index">-->
+  <!--    {{b}}-->
+  <!--  </p>-->
+  <!--</alert >-->
+<style>
+    .notselectable {
+        -webkit-user-select: none;
+    }
+
+    .selectable {
+        -webkit-user-select: initial;
+    }
+</style>
+  <paper-dialog ng-init="showindex=false" heading="Timed Index" opened={{showindex}}>
+    <p class="selectable" ng-repeat="b in timings track by $index">
+      {{b | htmlToPlainText}}
+    </p>
+  </paper-dialog>
+  <div style="position:absolute; top: 5px; left: 22px;">
+      <h2 ng-mouseover="showindex=true">{{::topic}}</h2>
+      <h3>{{::author}}</h3>
+      <h5 ng-show="created">Created: {{::created}}</h5>
+      <h5 ng-show="updated">Updated: {{::updated}}</h5>
+  </div>
+  <div style="position:absolute; top:5px; right:35px;"><h1 ng-mouseover="showindex=false">{{countDownNotice}}{{countDown}}</h1></div>
+</div>
+
+<!-- Add your site or application content here -->
+<div id="jmpress" ui-impress>
+    <div ng-repeat="item in newdata track by $index"
+         class="step" data-duration="2000"
+         data-view-port-width="1024" maxScale="2"
+         data-x="{{ item.coordinates.x }}"
+         data-y="{{ item.coordinates.y + $index*410 }}" data-z="{{ item.coordinates.z }}"
+         data-rotate-x="{{ item.rotate.x }}" data-rotate-y="{{ item.rotate.y }}" data-rotate-z="{{ item.rotate.z }}"
+         data-scale="{{ item.scale }}">
+        <div class="dialog" style="top:-120px; width:100%; height:380px; background:{{bg2}}; color:{{f1}};">
+          <div class="content" z="5">
+            <div class="title" style="float: right;font-size:1.3em;">{{$index+1}} of {{newdata.length}}</div><div class="title" ng-bind-html="item.prop.safekey"></div><br>
+            <div>
+              <!--{{item.prop.weight}}-->
+              <div ng-bind-html="item.prop.safevalue"></div>
+            </div>
+            <paper-ripple fit></paper-ripple>
+          </div>
+        </div>
+    </div>
+    <!--<div ng-repeat="item in ['ONE','TWO','THREE'] track by $index" -->
+    <!--class="step" data-duration="2000" data-x="{{ item.coordinates.x }}" data-y="{{ item.coordinates.y + $index*100}}" data-z="{{ item.coordinates.z }}" -->
+    <!--datx`a-rotate-x="{{ item.rotate.x }}" data-rotate-y="{{ item.rotate.y }}" data-rotate-z="{{ item.rotate.z }}" data-scale="{{ item.scale }}">TEST {{$index}} {{ item }}-->
+    <!--</div>-->
+    <!--<div ng-repeat="item in [1,1,1] track by $index">{{ item }}</div>-->
+</div>
+<!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-XXXXX-X');
+    ga('send', 'pageview');
+</script>
+
+<!-- build:js(.) scripts/oldieshim.js -->
+<!--[if lt IE 9]>
+<script src="../bower_components/es5-shim/es5-shim.js"></script>
+<script src="../bower_components/json3/lib/json3.min.js"></script>
+
+<![endif]-->
+<!-- endbuild -->
+
+<!-- build:js(.) scripts/vendor.js -->
+<!-- bower:js -->
+<!--<script src="bower_components/angular/angular.js"></script>-->
+<!--<script src="bower_components/json3/lib/json3.js"></script>-->
+<!--<script src="bower_components/angular-resource/angular-resource.js"></script>-->
+<!--<script src="bower_components/angular-cookies/angular-cookies.js"></script>-->
+<!--<script src="bower_components/angular-sanitize/angular-sanitize.js"></script>-->
+<!--<script src="bower_components/angular-animate/angular-animate.js"></script>-->
+<!--<script src="bower_components/angular-touch/angular-touch.js"></script>-->
+<!--<script src="bower_components/angular-route/angular-route.js"></script>-->
+<!-- endbower -->
+<!-- endbuild -->
+
+<!--<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular.js"></script>-->
+<!--<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular-resource.js"></script>-->
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.17/angular.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.17/angular-resource.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.17/angular-sanitize.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jmpress/0.4.5/jmpress.min.js"></script>
+<script src="../bower_components/lodash/dist/lodash.compat.min.js"></script>
+<!-- build:js({.tmp,app}) scripts/scripts.js -->
+<script src="scripts/app.js"></script>
+<script src="scripts/polymer.js"></script>
+<!--<script src="scripts/controllers/main.js"></script>-->
+<!--<script src="scripts/controllers/about.js"></script>-->
+<!-- endbuild -->
+</body>
+</html>
